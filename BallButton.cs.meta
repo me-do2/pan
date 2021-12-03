@@ -1,0 +1,12 @@
+fileFormatVersion: 2
+guid: c9eaaa8c34f3e40ec957b0470d922467
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - soccerBall: {fileID: 4448927980500774477, guid: ff98cea5512dd4b2eac938fbe3ef2d83, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
