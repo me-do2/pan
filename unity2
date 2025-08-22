@@ -1,0 +1,4220 @@
+unity2
+＃５１	ゲームオーバーを作ろう
+Step21	残機の減算処理を実装しよう　の続き
+
+=====================
+
+インスペクターの設定をする
+↓ヒエラルキーStageCtrlを選択した状態でインスペクターの下記項目を設定する　ゲームオーバー：GameOver  フェード：Fadeスクリプト
+
+↓ヒエラルキーGameManagerを選択した状態でインスペクターのデフォルトの残機を３にする
+
+↓ヒエラルキーGameOver配下のButtonを選択した状態でヒエラルキーのクリック時を下記のように設定する　＋　Runtime Only StageCtrl.Retry StageCtrl.cs
+
+
+この状態で実行▶するとリトライした時、最初のステージに戻ることができた
+
+↑ステージコントローラーとキャンバスをまとめてプレハブにしておくと後々ステージを作る時に便利かも
+空のオブジェクト作成：ContinuePoint　上の状態へ配置移動させた　StageCtrlをプロジェクトのPrefabへ移動
+次回はアセットストアを使う際の注意点について解説します
+
+
+
+＃５２　yutube動画を追い越したのでブログを見て進める　30/9/2020時点
+Unity Asset Storeを使う時注意すべき点 | ゲームの作り方！
+UnityAssetStoreはゲーム制作に便利な素材やプログラム、またUnityをより使いやすくする機能を手にいれることができる
+が、アセットを購入したのに、プロジェクトが動かなくなってしまう事がありますし、画面が真っピンクになる事もあります。
+直し方を知っていればいいですが知らないと詰んでしまう事もあります。また著作権の問題など多くの注意点があ
+
+＜ライセンスについて＞
+アセットの作者さんのライセンス表記があるか		表記を記載してある場所が作者さんによってバラバラ
+作者さんのライセンスが書いてあるかもしれない場所
+１　概要欄
+
+ちゃんと左下のShow Moreで全部表示させて確認
+credit　〜〜　と書いてある場合、「作者の名前をどこかに記載してね」と書いてある事が多いです。
+英語が苦手な人はポイントとして、「credit」「commercial」「not allow」「license」という記載がないかよく探して見るといいかと思います。creditは著作表記、commercialは商用利用について、not allowは許可しない事、licenseはそのままライセンスについて書いてある事が多いです。
+
+２　パッケージの中
+
+この中に「License」や「Read me」というファイルが存在する場合、そこにライセンス表記がされている場合があります。
+これはダウンロードしないと見れません。ダウンロードしてみて中身を読みましょう。
+
+３　コンテンツ欄
+
+ここにライセンス表記は2019/7/5現在ではありません。
+しかしながら、昔ここにライセンス表記がされていた事があり、アセットストアの見た目は日々アップデートしているので突然復活する可能性もあります。
+ストアの見た目が不意に変わっている事が多々あるのでコンテンツ欄にLicenseという項目が増えていないかどうか、さらっと見てチェックしましょう。
+
+４　作者さんのホームページ
+Support横のVisit siteをクリックすると作者がサイトに飛ぶ
+
+ライセンス表記がなかった場合
+↓その場合、UnityAssetStoreが取り決めたライセンスが適用されます。
+Unity – アセットストアの利用規約とEULA
+「アセットを取り出せない形」での公開、配布、販売		○
+商用・非商用									○
+アセットの改変（アドオンカテゴリのサービスを含まない)	○
+「アセットを取り出せる形」での公開、配布、販売		✗
+アドオンカテゴリのサービスのアセットのSDKを改変		✗
+アセットのバックアップ目的以外でのコピー				✗
+人数分ライセンス取得が必要なアセットを複数人で使い回す	✗
+「アセットを取り出せない形」「アセットを取り出せる形」というのは、そのままの意味で、ダウンロードしてきた素材が取り出せなければOKになります。
+例えば自作のゲーム内にアセットを含めて、そのゲームの実行ファイル(exeやapp,ipa,apkなど）を公開した場合はOKになります。
+
+
+↑アドオンカテゴリのサービスというのはストアの検索カテゴリの中のAdd-Ons＞Servicesになります。このカテゴリのアセットに含まれているSDKは改変禁止になっています。ただし、作者さん側から、こういう風に改変して使ってくれとかいてある場合があるので、そう書いてある変更については行う事ができます。
+
+また、Unity側が使用OKとしてるコンテンツは以下の通りです。
+ゲーム、映像、映画、動画、アニメ 医療・自動車・建設・製造業向けアプリケーション / シミュレーター デジタルアート（例：プロジェクションマッピング、メディアアート、ビジュアルジョッキー、その他） 電子書籍・漫画 ギャンブルコンテンツ（例：ビデオポーカーやビデオスロットマシン、その他) 業務アプリケーション
+また、この利用規約は2020年4月13日に解釈変更がなされており、今まではそのアセットを使用する場合
+（前）Unityで最終的なビルドをする、あるいはUnityをレンダリングエンジンとして使用しなければならない
+（後）Unityに限らずゲームエンジンやオーサリングソフトウェアなどに取り込んで使用できる
+という風に変わりました。これは使用可能範囲が広がってとてもありがたいですね。ただし、Unity外で使用する場合にはサポートの対象外になるのでご注意ください。
+このようにライセンスは色々と複雑ですが、見落としたりしたらトラブルの元になってしまいますので細心の注意を払いましょう。特に追加ライセンスが未だにくっついているアセットには気を付けましょう。
+
+＜エラーで動かなくなってしまう＞
+アセットストアでダウンロードしてきたものの、エラーで動かなくなる事もあります。　
+
+							　＜対象のUnityバージョンが違う＞
+エラーが起きてしまったらバージョンアップ対応を自分でしないといけなくなります。バージョンアップ対応のやり方がわからない場合は、そのアセットを導入しないほうがいいかなと思います。もしくはそのバージョンのUnityを使用するかです。
+
+Pluginと言う名前のフォルダが入っている
+ダウンロードしてきた物の中にフォルダでPluginという名前のものがあった場合は注意が必要です。
+Package Contentを参照してPluginというフォルダが無いか探してください。このプラグインというのはUnity外部の機能と連携して使う機能になります。
+iOSやAndroid、WindowsやMacは日々目まぐるしくアップデートを行なっている為、Pluginの中に入っている機能が、アップデートについていけていない可能性があります。その為、Pluginというフォルダがあった場合、一度カラのプロジェクトにそのアセットのみを入れてビルドしてみるといいと思います。普通、ゲームが完成してから実際に携帯やゲーム機などに入れてプレイしてみると思うのですが、Pluginのフォルダが入っていた場合、動かなくなる可能性があるので、被害が少ないうちにテストしてみましょう。Pluginと名のつくフォルダを入れた場合、早急に実機でプレイした方がいいでしょう。例えカラのプロジェクトであっても大丈夫ですので一回入れてみてテストしましょう。ちなみに、Pluginを入れてしまって動かなくなってしまった際に入れる前の状態に戻す手段がないと入れたアセットを全て削除する作業を行う羽目になります。作者さんが１つのフォルダにまとめてくれているといいのですが、たくさんのファイルに分けてあった場合削除が大変になってしまいます。
+導入する前の状態をバックアップすることをオススメします。
+
+Editorという名前のフォルダが入っている
+Editorという名前のフォルダがアセット内に含まれていた場合、Unity自体の機能を変えてしまいます。（正確には変更ではなく拡張なのですが、結果が変わってしまうのは事実です。）このEditorという名前のフォルダを持つアセットを１種類だけを導入した場合はほとんど問題はないと思いますが、たくさんの種類のアセットを導入した場合は問題が起こる事が多いです。違うアセットがUnityの同じ機能を変更しようとしてぶつかってしまう場合や、Unityの元々の機能を使用する事を想定していたのに別のアセットによって変更されていたり、無限ループに入ってしまって処理が終わらなくなったりします。
+世に言う食い合わせが悪い状態に陥ってしまうのです。その為、「Editor」と言う名前がついたフォルダを持ったアセットを複数導入したい場合は、まずカラのプロジェクトにそれらを入れてみて、ちゃんと動くかどうか調べてみる必要があります。また、ちゃんと動いたとしてもUnity自体が重くなる事があります。編集中にやたら処理が走ったりする事もあります。動かしているゲームが重いのではなく、Unity自体がなんか重いなと感じたら、まず「Editor」と名前がついたフォルダの中身を疑ってみましょう。
+
+指定しているPackageを導入していない
+作者さんの中には、PackageManagerに封入されているアセットを導入していることを前提としたアセットを販売されている方もいます。
+そういった作者さんはアセットの概要欄や、Read meやManualや自身のホームページで必要な初期設定を解説してくれているので、作者さんの指示に従いましょう。
+
+＜アセットがピンク色になってしまう＞
+アセットをダウンロードして来たはいいものの、アセットが真っピンクになってしまう事があります。この場合、シェーダーでエラーが起きています。エラーといっても種類が色々あります。
+シェーダーのバージョンが古い
+単にバージョンが古いので映らなかったりする事もあります。こちらも自分でバージョンアップ対応をする必要があります。バージョンアップのやり方がわからないのであれば、サポート対象外のUnityのバージョンを指定しているアセットは導入しないほうがいいと思います。もしくはそのバージョンのUnityを使うかです。
+
+アセットのフォルダを移動させた
+シェーダーの中には.cgincというファイルがある事があります。これの位置をシェーダープログラムとは別の場所に持って行ってしまうとエラーが起きる事があります。
+また、人によってはAssetsフォルダからパスを指定している人もいるので移動によってエラーが起きる可能性があります。
+作者さんが元々配置していた位置にフォルダを戻しましょう。
+
+マテリアルが外れている
+何らかの原因でマテリアルの参照が外れてしまう事があります。マテリアルがMissingになっていないかどうか確認してはめ直してください。
+
+アセットがPhysically-based shadingだ
+アセットの概要欄のところで「PBS」や「Physically-based shading」と記載されていた場合、Unityがデフォルトの状態だと真っピンクで表示されます。
+これはRender Pipelineが違うから起きる現象です。これらのアセットを使用するにはプロジェクトを作成する時に、High-DefinitionRPかLightweight RPかVRLightweightRPを選ぶ必要があります。プロジェクトのテンプレートが2Dや３Dや3D With Extrasだとピンク
+もしくは、プロジェクトにScriptRenderPipelineを使用するか、後からテンプレートの設定を適用する必要があります。
+ちょっと難しい設定ですので、わからない方はそのアセットを導入しないか、大人しくマテリアルに適用されているシェーダーをStanderd Shaderに変更してしまいましょう。
+
+＜モデルの見た目が思ってたのと違う＞
+ストア内だととっても綺麗ですごいアセットだったのに、いざダウンロードしてみたら思ってたのと違う事があります。
+これは、そのアセットの作者さんがPostProcessingを使うことを前提にしている事がある為です。
+そういった作者さんはアセットの概要欄や、Read meやManualや自身のホームページで必要な設定を解説してくれているので、作者さんの指示に従いましょう。
+ちゃんと設定通りにしないとショボイ見た目になって思ったのと違うことになってしまいます。
+
+＜ライセンスがややこしい＞ ここからNew情報　
+一番最初に見るべきポイントはそのアセットのライセンスです。実は2020年2月3日にライセンスの改定、2020年4月13日に利用規約の解釈の変更があり、いろいろな変化がありました。
+そのため、この記事のようなUnityAssetStoreのライセンスについての解説はいつ書かれているのかによって中身が全然違う物になっているので、ご注意ください。この記事は2020/9/29に書かれています。以降改定されてないかをご確認ください。この解説も古くなっている可能性があります。
+そして、2020年2月3日の改定が非常に大きく、それより前に出ていたアセットが今の状態と不整合があるものが出てきました。
+改定前に購入したアセットには以前のライセンスが、改定後に購入したアセットには改定後のライセンスが適用されます。ですが、2020年2月3日より前のライセンス想定で出品されたアセットがストアに残ってしまい、ちょっとちぐはぐな状況が生まれてしまいました
+実は以前は「追加ライセンス」というものがあり、UnityAssetStore本来のライセンスに加えて、アセットの制作者さんがそのアセットに対してライセンスを付与することができました。
+例えば、UnityAssetStoreのライセンスではアセットの制作者さんのクレジットを表記する必要はありませんが、追加ライセンスに「名前をクレジットに表記してください」とあった場合、表記する必要がありました。
+
+2020年2月3日より前に購入したアセットに関しては↓の追加ライセンスが適用される
+この追加ライセンスは、改定によりなくなってしまったんですが、追加ライセンスが付与されているアセットがストアに残ってしまいました。2020/9/29日現在でもまだちらほら見ます。
+これらのアセットについて公式は以下のように言っています
+パブリッシャーが独自に規約を付けている場合
+パブリッシャーが独自の規約を添付している場合、そのアセットは本来は審査を通過すべきアセットではありませんので下記お問い合わせ先からお知らせください。
+自動的にアセットストアの利用規約が優先されたりパブリッシャーの独自利用規約が無効化されることはありません。当該アセットが適正な状態になるまでの間、一時的にアセットストアから削除するなどの措置を取るなどして、パブリッシャーに対して是正を手配します。
+
+http://assetstore.info/notice/eulainterpretation20200413/
+ということで、2020/2/3以降に追加ライセンスを持ったアセットを購入するのはちょっとマズイです。購入してしまった場合は、公式に報告して、返金処理をしてもらえないか相談した方がいいかなとお思います。
+ただし、パブリッシャー独自のライセンスは廃止されたのですが、MITライセンス、BSD 3-Clause、Apacheライセンスを含むアセットの場合は、こちらが優先して適用されます。ストアの概要欄、readmeなどを確認しましょう。
+そして、Unity公式が出している下記4アセットのみ、独自の利用規約、使用許諾があります。
+“Unity-Chan!” Model
+Unity-Chan License (UCL)の下に配布されています。
+Lost Crypt 2D サンプルプロジェクト
+Unity Companion Licenseの下に配布されているファイルを含みます。詳細についてはパッケージ内の ThirdPartyNotices.txt をご参照ください。
+Book Of The Dead: Environment
+プロジェクトに含まれる、カスタマイズ済みのポストプロセッシング、レンダーパイプラインのコア、および HD レンダーパイプラインは Unity Companion License の対象です。コードの各コンポーネントのライセンス情報の詳細についてはパッケージ内の ThirdPartyNotices.txt をご参照ください。
+The Heretic: Digital Human
+デジタルキャラクターは、教育と非商用目的に限ってUnityでのみお使いいただけます。当該パッケージで使われているデジタルヒューマン以外の部品については通常のアセットストアEULAが適用されます。
+
+ストアから追加ライセンスが入ったものが完全になくなってくれれば、いちいちライセンスを確認する必要がなくなるので、便利なのですが、それまでは確認する必要があります。将来なんとかなることに期待ですね。
+
+＜シートライセンス・サイトライセンス＞
+↑の利用規約に加えて、UnityAssetStoreには購入時にシートライセンスとサイトライセンスという２種類のライセンスが適用されます。
+これも2020年2月3日に改定されているので、前後で扱いが違います。2020年2月3日より前に購入したアセットは以前のライセンスが適用されるので、ご注意ください。といっても、2020年2月3日より前のアセットでシート購入した覚えがないアセットは個人（と同じ建物に住んでいる家族）、もしくは単一の法人（同一の拠点）内で使いまわせるので、使う範囲さえ広げなければ問題ないかと思います。改定後、そのアセットがシートライセンスに変わっていても追加でシートを購入する必要はありません。
+2020年2月3日以降は下記のように変わっています。（改定前でシート購入したアセットも↓のシートライセンスを参照してください）
+シートライセンスかサイトライセンスどちらが適用されているかは、カートにいれるボタンの近くを見ればわかると思います。
+
+シートライセンス
+
+購入時に付与されるライセンス　主にアセットの利用可能な範囲を示している
+シートライセンスというのは簡単に言うと、原則として１人１つ購入する必要があるものになります。
+Extension Assetと書かれている場合もシートベースになる
+２人で開発するには２つ購入、３人で開発する場合は３つ購入する必要があります。
+無料のものは、ライセンスのところにシートと書いてあるだけです。無料の物は何人居ようと各自でDLすればいい話なので、特に気にせず使えると思います。
+
+有料のものは購入するところに購入数を決めるUIが出現するので、開発人数に合わせて購入してください。１つだけ購入して、みんなで使いまわすと利用規約違反になります。
+
+また、シートライセンスの中には必ずしも１人１シートとは限らないものもあります。そういう場合は説明が書いてあると思うので、そちらを読みましょう
+
+
+サイトライセンス
+サイトライセンスが適用されている場合は、購入者がどの立場にあるのか選択する必要があります。
+サイトライセンスが適用されているアセットは、その選択した範囲内で人数に関係なく無制限にアセットを利用できます。
+
+
+Single Entity
+「単一の法人」もしくは「Single Entity」と書かれているところを選択するとアセットの利用可能範囲が以下になります。
+・個人（と同じ建物に住む家族） ・単一の法人（同一拠点内）
+Multi Entity
+「複数の法人」もしくは、「Multi Entity」と書かれているところを選択するとアセットの利用可能範囲が以下になります。
+・法人または事業体の従業員 ・親会社、子会社、兄弟会社などからなる企業グループの従業員
+また、法人または事業体と単一のプロジェクト単位で業務委託契約を結んで働く個人や企業の従業員も、契約対象のプロジェクトに限定してアセットを共用利用できます。
+ただし、以下のケースは対象範囲に含まれないそうです。
+・ジョイントベンチャー ・協力企業もしくは取引先など ・共同事業体 ・法人または事業体と単一のプロジェクトに制限せずに業務委託契約を結んで働く方
+これらのケースはまたそれぞれで別途アセットを購入する必要があります。
+また、プロジェクト単位で業務委託契約を結んで働く方が保有する「複数企業向けライセンス」のアセットを、業務委託契約相手である発注者と共用利用することはできません。
+
+＜拡張キットだ＞
+アセットの中には、〇〇アセットを更によりよくする拡張キットが売っている場合があります。この場合、そもそも元の〇〇アセットを持っていないと動かないケースもあるので、ストア概要欄をよく読みましょう。
+
+＜アセットそのものが著作権違反だ＞
+実は悲しいことに、UnityAssetStoreで出品されている商品の中にも著作権違反をしているものがたまに現れます。
+これはストアに並んでいることがそもそもおかしいので、見つけたらUnityに違反報告をしましょう。
+と言っても、公式も見逃してストアに並べてしまっているので、見分けるのは非常に困難です。
+例えば、著作権違反のBGMが売られていたとしても、そのBGM自体を聞いたことないと、それが著作権違反の物であるのかというのは判別がつきません。
+そのため、公式もこれらの違反を１００％完璧に排除するのは難しいと思いますし、我々も判別するのはかなり難しいです。
+こればっかりはストアのレビューを見て判断するしかなさそうです。
+ちょっと完全な回避策とは言えませんが ・なるべくレビューが少ないアセットは避ける ・レビューに変なことが書かれていないかよく読む ・BGM、キャラクターなどは特に気を付ける
+これらを気を付けることによって、著作権違反のアセットを自分が踏むという状況は回避できるかもしれません。
+
+＜追加ライセンス＞
+許可されている追加ライセンスがある
+・MITライセンス
+・BSD　３-Clause
+・Apacheライセンス
+
+
+Unity 2Dアクションの作り方【BGM・SEをつけよう】 | ゲームの作り方！
+＃５３かな？　＜アセットストアで素材を集めよう＞
+今回は無料のものをダウンロード
+仮のBGMとSE(効果音)をダウンロードして試しに当てはめてみるみたいな感じです。
+アセットストアを開くには上部メニューのウィンドウWindow＞アセットストアAsset Storeから開きます。
+アセットーオーディオ
+
+The 8-bit Jukebox Lite - Music Pack　Package Size 397.7MB Supported Unity Versions 2019.4.1 or higher
+マイアセットに追加する	Terms of Service 同意する	このアセットを 2020年9月30日 に購入しました　Unityで開く　Unity.appで開く　許可する
+パッケージマネージャーが起動する　ダウンロード  
+
+インポート
+
+↑シートライセンス
+インポート(BGM用)
+プロジェクトAssets配下にCyberleaf Music - The 8-bit Jukebox Liteが入る
+☑Override for iOS 適用する　全て　18個
+titleScenesに空のオブジェクト作成　名前：BGM
+コンポーネントを追加　🔍Audio Sourceオーディオソース　ループ☑
+タイトルシーンではArcadeJam（BGM名）を選択
+ステージ１では8BitNinjas（BGM名）を選択
+BGMはつけることができたがタイトルシーンからいくと残機が０のままなのでGameManagerのインスペクター
+現在のステージ1　現在の残機3　デフォルトの残機3に変更
+タイトルとシーン１にBGMをつけることができた
+
+次はSEをつけていく
+アセットストアからSE音源をインポート
+
+↑シートライセンス
+Player
+1 ジャンプする時に鳴らすSE	s_ef_ce_barrier
+2 やられた鳴らすSE			s_ef_ce_mine_s
+3 コンティニュー時に鳴らすSE	s_ef_ce_atfield
+ScoreItem
+4 アイテム取得時に鳴らすSE	s_ef_ce_yororo_e
+StageCtrl 
+5 ゲームオーバー時に鳴らすSE	s_ef_ce_mine_e
+6 リトライ時に鳴らすSE		s_ef_cm_dm_umbrella_open
+Title 
+7 ゲームスタート時に鳴らすSE	s_ef_cm_dm_umbrella_def2
+Enemy_Zako1
+8 やられた時に鳴らすSE		s_ef_cm_dm_umbrella_def
+
+音源を１つにするならばゲームマネージャーをくっつけてあるゲームオブジェクトにコンポーネントの追加から
+Audio Sourceをくっつけましょう。ゲーム開始時に再生Play On Awake☑外す
+
+ゲームマネージャーにSEを鳴らす機能を追加
+GManager 
+=====================
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class GManager : MonoBehaviour
+{
+    public static GManager instance = null;
+
+    [Header("スコア")] public int score;
+    [Header("現在のステージ")] public int stageNum;
+    [Header("現在の復帰位置")] public int continueNum;
+    [Header("現在の残機")] public int heartNum;
+    [Header("デフォルトの残機")] public int defaultHeartNum;
+    [HideInInspector] public bool isGameOver;
+
+    private AudioSource audioSource = null;			//①くっつけたAudioSourceのインスタンスを捕まえる
+
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(this.gameObject);
+        }
+        else
+        {
+            Destroy(this.gameObject);
+        }
+    }
+
+　 private void Start()							//
+    {											//
+        audioSource = GetComponent<AudioSource>();	//
+    }											//
+
+    /// <summary>
+    /// 残機を１つ増やす
+    /// </summary>
+    public void AddHeartNum()
+    {
+        if(heartNum < 99)
+        {
+            ++heartNum;
+        }
+    }
+
+    /// <summary>
+    /// 残機を１減らす
+    /// </summary>
+    public void SubHeartNum()
+    {
+        if(heartNum > 0)
+        {
+            --heartNum;
+        }
+        else
+        {
+            isGameOver = true;
+        }
+    }
+
+    /// <summary>
+    /// 最初から始める時の処理
+    /// </summary>
+    public void RetryGmage()
+    {
+        isGameOver = false;
+        heartNum = defaultHeartNum;
+        score = 0;
+        stageNum = 1;
+        continueNum = 0;
+    }
+
+　 /// <summary>									//②AudioSourceから音を鳴らすのをスクリプト
+    /// SEを鳴らす									//で行う
+    /// </summary>
+    public void PlaySE(AudioClip clip)
+    {
+        if (audioSource != null)
+        {
+            audioSource.PlayOneShot(clip);
+
+        }
+        else
+        {
+            Debug.Log("オーディオソースが設定されていません");
+        }
+    }
+}
+=====================
+AudioClipはAudioSourceのインスペクターで設定したやつです。
+AudioSourceは音源でAudioClipがSEのファイルになります。
+PlayOneShotは1回だけ音を再生します。
+後は音を鳴らしたいタイミングでこのメソッドを呼べばOKです。
+これで、ゲームマネージャーを通してどこからでも音を鳴らす事が可能となったので、今まで作成してきたスクリプトに音の処理を追加します。
+
+
+SEを鳴らす処理を追加したプレイヤーのスクリプト
+=====================
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+public class Player : MonoBehaviour
+{
+    #region//インスペクターで設定する
+    [Header("移動速度")] public float speed;
+    [Header("重力")] public float gravity;
+    [Header("ジャンプ速度")] public float jumpSpeed;
+    [Header("ジャンプする高さ")] public float jumpHeight;
+    [Header("ジャンプする長さ")] public float jumpLimitTime;
+    [Header("踏みつけ判定の高さの割合")] public float stepOnRate;
+    [Header("接地判定")] public GroundCheck ground;
+    [Header("天井判定")] public GroundCheck head;
+    [Header("ダッシュの速さ表現")] public AnimationCurve dashCurve;
+    [Header("ジャンプの速さ表現")] public AnimationCurve jumpCurve;
+    [Header("ジャンプする時に鳴らすSE")] public AudioClip jumpSE; //New!
+    [Header("やられた鳴らすSE")] public AudioClip downSE; //New
+    [Header("コンティニュー時に鳴らすSE")] public AudioClip continueSE;  //New
+    #endregion
+
+    #region//プライベート変数
+    private Animator anim = null;
+    private Rigidbody2D rb = null;
+    private CapsuleCollider2D capcol = null;
+    private SpriteRenderer sr = null;
+    private bool isGround = false;　
+    private bool isJump = false;
+    private bool isRun = false;
+    private bool isHead = false;
+    private bool isDown = false;
+    private bool isOtherJump = false;
+    private bool isContinue = false;
+    private bool nonDownAnim = false;
+    private float continueTime = 0.0f;
+    private float blinkTime = 0.0f;
+    private float jumpPos = 0.0f;
+    private float otherJumpHeight = 0.0f;
+    private float dashTime = 0.0f;
+    private float jumpTime = 0.0f;
+    private float beforeKey = 0.0f;
+    private string enemyTag = "Enemy";
+    private string deadAreaTag = "DeadArea";
+    private string hitAreaTag = "HitArea";
+    #endregion
+
+    void Start()
+    {
+        //コンポーネントのインスタンスを捕まえる
+        anim = GetComponent<Animator>();
+        rb = GetComponent<Rigidbody2D>();
+        capcol = GetComponent<CapsuleCollider2D>();
+        sr = GetComponent<SpriteRenderer>();
+    }
+
+    private void Update()
+    {
+        if (isContinue)
+        {
+            //明滅　ついている時の戻る
+            if(blinkTime > 0.2f)
+            {
+                sr.enabled = true;
+                blinkTime = 0.0f;
+            }
+            //明滅　消えている時
+            else if(blinkTime > 0.1f)
+            {
+                sr.enabled = false;
+            }
+            //明滅　ついている時
+            else
+            {
+                sr.enabled = true;
+            }
+            //1秒たったら明滅終わり
+            if(continueTime > 1.0f)
+            {
+                isContinue = false;
+                blinkTime = 0.0f;
+                continueTime = 0.0f;
+                sr.enabled = true;
+            }
+            else
+            {
+                blinkTime += Time.deltaTime;
+                continueTime += Time.deltaTime;
+            }
+        }
+    }
+
+    void FixedUpdate()
+    {
+        if (!isDown && !GManager.instance.isGameOver)
+        {
+            //接地判定を得る
+            isGround = ground.IsGround();
+            isHead = head.IsGround();
+
+            //各種座標軸の速度を求める
+            float xSpeed = GetXSpeed();
+            float ySpeed = GetYSpeed();
+
+            //アニメーションを適用
+            SetAnimation();
+
+            //移動速度を設定
+            rb.velocity = new Vector2(xSpeed, ySpeed);
+        }
+        else
+        {
+            rb.velocity = new Vector2(0, -gravity);
+        }
+    }
+
+    /// <summary>
+    /// Y成分で必要な計算をし、速度を返す。
+    /// </summary>
+    /// <returns>Y軸の速さ</returns>
+    private float GetYSpeed()
+    {
+        float verticalKey = Input.GetAxis("Vertical");
+        float ySpeed = -gravity;
+
+        //何かを踏んだ際のジャンプ
+        if (isOtherJump)
+        {
+            //現在の高さが飛べる高さより下か
+            bool canHeight = jumpPos + otherJumpHeight > transform.position.y;
+            //ジャンプ時間が長くなりすぎてないか
+            bool canTime = jumpLimitTime > jumpTime;
+
+            if (canHeight && canTime && !isHead)
+            {
+                ySpeed = jumpSpeed;
+                jumpTime += Time.deltaTime;
+            }
+            else
+            {
+                isOtherJump = false;
+                jumpTime = 0.0f;
+            }
+        }
+        //地面にいるとき
+        else if (isGround)
+        {
+            if (verticalKey > 0)
+            {
+	        if (!isJump)
+                {
+                    GManager.instance.PlaySE(jumpSE);  //New!
+                }
+                ySpeed = jumpSpeed;
+                jumpPos = transform.position.y; //ジャンプした位置を記録する
+                isJump = true;
+                jumpTime = 0.0f;
+            }
+            else
+            {
+                isJump = false;
+            }
+        }
+        //ジャンプ中
+        else if (isJump)
+        {
+            //上方向キーを押しているか
+            bool pushUpKey = verticalKey > 0;
+            //現在の高さが飛べる高さより下か
+            bool canHeight = jumpPos + jumpHeight > transform.position.y;
+            //ジャンプ時間が長くなりすぎてないか
+            bool canTime = jumpLimitTime > jumpTime;
+
+            if (pushUpKey && canHeight && canTime && !isHead)
+            {
+                ySpeed = jumpSpeed;
+                jumpTime += Time.deltaTime;
+            }
+            else
+            {
+                isJump = false;
+                jumpTime = 0.0f;
+            }
+        }
+        
+        if (isJump || isOtherJump)
+        {
+            ySpeed *= jumpCurve.Evaluate(jumpTime);
+        }
+        return ySpeed;
+    }
+
+    /// <summary>
+    /// X成分で必要な計算をし、速度を返す。
+    /// </summary>
+    /// <returns>X軸の速さ</returns>
+    private float GetXSpeed()
+    {
+        float horizontalKey = Input.GetAxis("Horizontal");
+        float xSpeed = 0.0f;
+
+        if (horizontalKey > 0)
+        {
+            transform.localScale = new Vector3(1, 1, 1);
+            isRun = true;
+            dashTime += Time.deltaTime;
+            xSpeed = speed;
+        }
+        else if (horizontalKey < 0)
+        {
+            transform.localScale = new Vector3(-1, 1, 1);
+            isRun = true;
+            dashTime += Time.deltaTime;
+            xSpeed = -speed;
+        }
+        else
+        {
+            isRun = false;
+            xSpeed = 0.0f;
+            dashTime = 0.0f;
+        }
+
+        //前回の入力からダッシュの反転を判断して速度を変える
+        if (horizontalKey > 0 && beforeKey < 0)
+        {
+            dashTime = 0.0f;
+        }
+        else if (horizontalKey < 0 && beforeKey > 0)
+        {
+            dashTime = 0.0f;
+        }
+
+        beforeKey = horizontalKey;					//削除
+        xSpeed *= dashCurve.Evaluate(dashTime);
+        beforeKey = horizontalKey;
+        return xSpeed;
+    }
+
+    /// <summary>
+    /// アニメーションを設定する
+    /// </summary>
+    private void SetAnimation()
+    {
+        anim.SetBool("jump", isJump || isOtherJump);
+        anim.SetBool("ground", isGround);
+        anim.SetBool("run", isRun);
+    }
+
+    /// <summary>
+    /// コンテニュー待機状態か
+    /// </summary>
+    /// <returns></returns>
+    public bool IsContinueWaiting()
+    {
+        if (GManager.instance.isGameOver)
+        {
+            return false;
+        }
+        else
+        {
+            return IsDownAnimEnd() || nonDownAnim;
+        }
+    }
+
+    //ダウンアニメーションが完了しているかどうか
+    private bool IsDownAnimEnd()
+    {
+        if(isDown && anim != null)
+        { 
+            AnimatorStateInfo currentState = anim.GetCurrentAnimatorStateInfo(0);
+            if (currentState.IsName("player_down"))
+            {
+                if(currentState.normalizedTime >= 1)
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    /// <summary>
+    /// コンテニューする
+    /// </summary>
+    public void ContinuePlayer()
+    {
+        GManager.instance.PlaySE(continueSE);  //New! 
+        isDown = false;
+        anim.Play("player_stand");
+        isJump = false;
+        isOtherJump = false;
+        isRun = false;
+        isContinue = true;
+        nonDownAnim = false;
+    }
+
+    //やられた時の処理
+    private void ReceiveDamage(bool downAnim)
+    {
+        if (isDown)
+        {
+            return;
+        }
+        else
+        {
+            if (downAnim)
+            {
+                anim.Play("player_down");
+            }
+            else
+            {
+                nonDownAnim = true;
+            }
+            isDown = true;
+　　　  GManager.instance.PlaySE(downSE);  //New!
+            GManager.instance.SubHeartNum();
+        }
+    }
+
+    #region//接触判定
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.collider.tag == enemyTag)
+        {
+            //踏みつけ判定になる高さ
+            float stepOnHeight = (capcol.size.y * (stepOnRate / 100f));
+
+            //踏みつけ判定のワールド座標
+            float judgePos = transform.position.y - (capcol.size.y / 2f) + stepOnHeight;
+
+            foreach (ContactPoint2D p in collision.contacts)
+            {
+                if (p.point.y < judgePos)
+                {
+                    //もう一度跳ねる
+                    ObjectCollision o = collision.gameObject.GetComponent<ObjectCollision>();
+                    if(o != null)
+                    {
+                        otherJumpHeight = o.boundHeight;//踏んづけたものから跳ねる高さを取得する
+                        o.playerStepOn = true;          //踏んづけたものに対して踏んづけた事を通知する
+                        jumpPos = transform.position.y; //ジャンプした位置を記録する
+                        isOtherJump = true;
+                        isJump = false;
+                        jumpTime = 0.0f;
+                    }
+                    else
+                    {
+                        Debug.Log("ObjectCollisionが付いてないよ！");
+                    }
+                }
+                else
+                {
+                    ReceiveDamage(true);
+                    break;
+                }
+            }
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.tag == deadAreaTag)
+        {
+            ReceiveDamage(false);
+        }
+        else if(collision.tag == hitAreaTag)
+        {
+            ReceiveDamage(true);
+        }
+    }
+
+    #endregion
+}
+=====================
+プレイヤーのスクリプトの部分だけ、ジャンプした時、１フレームで接地判定から抜けるかどうかわからないので、２重に鳴らないようにしています
+↓PlayerのインスペクターのSEの設定
+
+
+↓アイテムを取得した時にSEを鳴らすようにしたアイテムのスクリプト
+ScoreItem
+=====================
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class ScoreItem : MonoBehaviour
+{
+    [Header("加算するスコア")] public int myScore;
+    [Header("プレイヤーの判定")] public PlayerTriggerCheck playerCheck;
+    [Header("アイテム取得時に鳴らすSE")] public AudioClip itemSE;
+
+    // Update is called once per frame
+    void Update()
+    {
+        //プレイヤーが判定内に入ったら
+        if (playerCheck.isOn)
+        {
+            if (GManager.instance != null)
+            {
+                GManager.instance.score += myScore;
+                GManager.instance.PlaySE(itemSE);
+                Destroy(this.gameObject);
+            }
+        }
+    }
+}
+=====================
+↓starのインスペクターのSEの設定
+
+
+↓ゲームオーバー時のSEを鳴らすようにしたステージコントローラー
+ StageCtrl
+=====================
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+
+public class StageCtrl : MonoBehaviour
+{
+    [Header("プレイヤーゲームオブジェクト")] public GameObject playerObj;
+    [Header("コンテニュー位置")] public GameObject[] continuePoint;
+    [Header("ゲームオーバー")] public GameObject gameOverObj;
+    [Header("フェード")] public FadeImage fade;
+    [Header("ゲームオーバー時に鳴らすSE")] public AudioClip gameOverSE; //New!
+    [Header("リトライ時に鳴らすSE")] public AudioClip retrySE; //New!
+
+    private Player p;
+    private int nextStageNum;
+    private bool startFade = false;
+    private bool doGameOver = false;
+    private bool retryGame = false;
+    private bool doSceneChange = false;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        if(playerObj != null && continuePoint != null && continuePoint.Length > 0 && gameOverObj != null && fade != null)
+        {
+            gameOverObj.SetActive(false);
+            playerObj.transform.position = continuePoint[0].transform.position;
+            p = playerObj.GetComponent<Player>();
+            if(p == null)
+            {
+                Debug.Log("プレイヤーじゃない物がアタッチされているよ！");
+            }
+        }
+        else
+        {
+            Debug.Log("設定が足りてないよ！");
+        }
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        //ゲームオーバー時の処理
+        if(GManager.instance.isGameOver && !doGameOver)
+        {
+            gameOverObj.SetActive(true);
+            GManager.instance.PlaySE(gameOverSE); //New!
+            doGameOver = true;
+        }
+        //プレイヤーがやられた時の処理
+        else if(p != null && p.IsContinueWaiting() && !doGameOver)
+        {
+            if(continuePoint.Length > GManager.instance.continueNum)
+            {
+                playerObj.transform.position = continuePoint[GManager.instance.continueNum].transform.position;
+                p.ContinuePlayer();
+            }
+            else
+            {
+                Debug.Log("コンテニューポイントの設定が足りてないよ！");
+            }
+        }
+
+        //ステージを切り替える
+        if (fade != null && startFade && !doSceneChange)
+        {
+            if (fade.IsFadeOutComplete())
+            {
+                //ゲームリトライ
+                if (retryGame)
+                {
+                    GManager.instance.RetryGame();
+                }
+                //次のステージ
+                else
+                {
+                    GManager.instance.stageNum = nextStageNum;
+                }
+                SceneManager.LoadScene("stage" + nextStageNum);
+                doSceneChange = true;
+            }
+        }
+    }
+
+    /// <summary>
+    /// 最初から始める
+    /// </summary>
+    public void Retry()
+    {
+        GManager.instance.PlaySE(retrySE); //New!
+        ChangeScene(1); //最初のステージ１に戻るので１
+        retryGame = true;
+    }
+
+    /// <summary>
+    /// ステージを切り替えます
+    /// </summary>
+    /// <param name="num">ステージ番号</param>
+    public void ChangeScene(int num)
+    {
+        if(fade != null)
+        {
+            nextStageNum = num;
+            fade.StartFadeOut();
+            startFade = true;
+        }
+    }
+}
+=====================
+プロジェクト　Assets > Prefab プレハブにあるFade GameManager StageCtrlは
+プレハブから設定すると全てのFade GameManager StageCtrlに適用されるのでプレハブから設定する
+↓プレハブのStageCtrlインスペクターのSEの設定
+
+
+↓ゲームスタートのSEを鳴らすようにしたタイトルのスクリプト
+Title 
+=====================
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+
+public class Title : MonoBehaviour
+{
+    [Header("フェード")] public FadeImage fade;
+    [Header("ゲームスタート時に鳴らすSE")] public AudioClip startSE;
+
+    private bool firstPush = false;
+    private bool goNextScene = false;
+
+    /// <summary>
+    /// スタートボタンを押されたら呼ばれる
+    /// </summary>
+    public void PressStart()
+    {
+        Debug.Log("Press Start!");
+        if (!firstPush)
+        {
+            Debug.Log("Go Next Scene!"); //削除
+            GManager.instance.PlaySE(startSE);
+            fade.StartFadeOut();
+            firstPush = true;
+        }
+    }
+
+    private void Update()
+    {
+        if (!goNextScene && fade.IsFadeOutComplete())
+        {
+            SceneManager.LoadScene("stage1");
+            goNextScene = true;
+        }
+    }
+}
+=====================
+titleScenesのCanvasのインスペクターのSEの設定
+
+
+↓SEを鳴らす処理を追加した敵のスクリプト
+Enemy_Zako1
+=====================
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Enemy_Zako1 : MonoBehaviour
+{
+    #region//インスペクターで設定する
+    [Header("加算スコア")] public int myScore;
+    [Header("移動速度")] public float speed;
+    [Header("重力")] public float gravity;
+    [Header("画面外でも行動するか")] public bool nonVisible;
+    [Header("接触判定")] public EnemyCollisionCheck checkCollision;
+    [Header("やられた時に鳴らすSE")] public AudioClip deadSE;
+    #endregion
+
+    #region//プライベート変数
+    private Rigidbody2D rb = null;
+    private SpriteRenderer sr = null;
+    private Animator anim = null;
+    private ObjectCollision oc = null;
+    private BoxCollider2D col = null;
+    private bool rightTleftF = false;
+    private bool isDead = false;
+    #endregion
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        rb = GetComponent<Rigidbody2D>();
+        sr = GetComponent<SpriteRenderer>();
+        anim = GetComponent<Animator>();
+        oc = GetComponent<ObjectCollision>();
+        col = GetComponent<BoxCollider2D>();
+    }
+
+    // Update is called once per frame  //削除
+    void FixedUpdate()
+    {
+        if (!oc.playerStepOn)
+        {
+        
+            if (sr.isVisible || nonVisible)
+            {
+                if (checkCollision.isOn)
+                {
+                    rightTleftF = !rightTleftF;
+                }
+                int xVector = -1;
+                if (rightTleftF)
+                {
+                    xVector = 1;
+                    transform.localScale = new Vector3(-1, 1, 1);
+                }
+                else
+                {
+                    transform.localScale = new Vector3(1, 1, 1);
+                }
+                rb.velocity = new Vector2(xVector * speed, -gravity);
+            }
+            else
+            {
+                rb.Sleep();
+            }
+        }
+        else
+        {
+            if(!isDead)
+            {
+                anim.Play("dead");
+                rb.velocity = new Vector2(0, -gravity);
+                isDead = true;
+                col.enabled = false;
+                if (GManager.instance != null)
+                {
+                    GManager.instance.PlaySE(deadSE);
+                    GManager.instance.score += myScore;
+                }
+                Destroy(gameObject, 3f);
+            }
+            else
+            {
+                transform.Rotate(new Vector3(0, 0, 5));
+            }
+        }
+    }
+}
+=====================
+enemy_walk1のインスペクターの設定
+
+各種スクリプトに音を鳴らす処理を追加しました。どれも音を鳴らしたいタイミングで
+GManager.instance.PlaySE(オーディオクリップ);
+としているだけです。これで音を鳴らすことができます。
+
+
+
+＃５４かな？　Unity 2Dアクションの作り方【動く床・落ちる床】【ギミック】
+ウィンドウー２Dータイトルパレットで床を延長　かえるちゃんのジャンプする高さを3→5に変更
+＜下からのみすり抜ける床＞
+様々なギミックの床を作る前に、下から一方通行ですり抜ける床を作っておかないと各種ギミック床が下から乗ることができないので、まずは下からのみすり抜けられるようにします。
+とりあえず、適当に下書きで書いた床を配置して、Box Collider 2Dをくっつけます。
+※タイルマップではなく、スプライトを直接置いてください
+Add ComponentでPlatform Effector 2Dというのを貼り付けます。
+そしてボックスコライダーのインスペクターでエフェクターで使用Used By Effectorにチェックを入れましょう。
+こうすることで、PlatformEffector2Dを使用することができるようになります。
+このPlatformEffector2Dはコライダーを一方通行にしてくれる便利なコンポーネントです。これをくっつけるだけで一方通行になるのでUnity様様ですね。
+↓のような感じになります。
+
+↑の半円がなんなのかとか、パラメータをいじってみたい方は↓の記事を参考にしてください。
+UnityのPlatformEffector2D【使い方とスクリプト】 | ゲームの作り方！
+
+さて、Unityの機能によって、すり抜ける床になりましたが、現在のプレイヤーのスクリプトは頭に地面がぶつかったらジャンプをやめる処理が入っています。そのため、頭にある設置判定を、すり抜ける床に関しては反応しないようにしないといけません。
+この床を判別するために、タグを追加しましょう。Add TagからGroundPlatformというのを追加します。そして、床のタグを GroundPlatform にします。
+
+そして、接地判定のスクリプトで、頭の判定と、足の判定を分けなければいけないため、インスペクターでどっちか選択できるようにします。
+
+GroundCheckスクリプト
+=====================
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class GroundCheck : MonoBehaviour
+{
+    [Header("エフェクトがついた床を判定するか")] public bool checkPlatformGroud = true;
+
+    private string groundTag = "Ground";
+    private string platformTag = "GroundPlatform";
+    private bool isGround = false;
+    private bool isGroundEnter, isGroundStay, isGroundExit;
+
+    //物理判定の更新毎に呼ぶ必要がある 削除　接地判定を返すメソッド
+    public bool IsGround()
+    {
+        if(isGroundEnter || isGroundStay)
+        {
+            isGround = true;
+        }
+        else if (isGroundExit)
+        {
+            isGround = false;
+        }
+
+        isGroundEnter = false;
+        isGroundStay = false;
+        isGroundExit = false;
+        return isGround;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == groundTag)
+        {
+            isGroundEnter = true;
+        }
+        else if (checkPlatformGroud && collision.tag == platformTag)
+        {
+            isGroundEnter = true;
+        }
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.tag == groundTag)
+        {
+            isGroundStay = true;
+        }
+        else if (checkPlatformGroud && collision.tag == platformTag)
+        {
+            isGroundStay = true;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.tag == groundTag)
+        {
+            isGroundExit = true;
+        }
+        else if (checkPlatformGroud && collision.tag == platformTag)
+        {
+            isGroundExit = true;
+        }
+    }
+}
+=====================
+ヒエラルキーCameraCollider インスペクター要素０X30→60　要素３X30→60 カメラの映る範囲を広げた
+そして、頭の判定(HeadCheck)はインスペクターで、チェックを外し、足の方の判定(GroundCheck)はチェックをつけた状態にします。
+
+一方通行にすり抜けることができた
+
+落ちたら残機が減るオブジェクトの名前をDeadAreaにしてサイズXを70に変更して大きくした
+ヒエラルキーObject配下にtogeとtoge2を移動させた
+
+ポイントとして必ず下からのみすり抜ける床の当たり判定をプレイヤーの接地判定より薄くする事です。
+こうしないと地面の中で足の判定の方が接地判定になってしまってストンと落ちたり地面の中で多段ジャンプができるようになってしまいます。
+
+
+↑薄くしたが多段ジャンプは解消されなかった✗　が正常な動きかもしれないので放置
+
+＜動く床＞
+動く床のスクリプト解説
+それでは動く床を実装していきます。
+ただ床を動かすスクリプトを作っても汎用性に欠けるので、オブジェクトを指定した経路通りに動くスクリプトを作成します。
+オブジェクトを指定した経路通りに動かすスクリプト
+
+MoveObjectスクリプト　NEW
+=====================
+ using System.Collections;
+ using System.Collections.Generic;
+ using UnityEngine;
+ 
+ public class MoveObject : MonoBehaviour
+ {
+     [Header("移動経路")]public GameObject[] movePoint;
+     [Header("速さ")]public float speed = 1.0f;
+ 
+     private Rigidbody2D rb;
+     private int nowPoint = 0;
+     private bool returnPoint = false;
+ 
+     private void Start()
+     {
+         rb = GetComponent<Rigidbody2D>();
+         if (movePoint != null && movePoint.Length > 0 && rb != null)
+         {
+             rb.position = movePoint[0].transform.position;
+         }
+     }
+ 
+     private void FixedUpdate()
+     {
+         if(movePoint != null && movePoint.Length > 1 && rb != null)
+         {
+             //通常進行
+             if (!returnPoint)
+             {
+                 int nextPoint = nowPoint + 1;
+ 
+                 //目標ポイントとの誤差がわずかになるまで移動
+                 if (Vector2.Distance(transform.position, movePoint[nextPoint].transform.position) > 0.1f)
+                 {
+                     //現在地から次のポイントへのベクトルを作成
+                     Vector2 toVector = Vector2.MoveTowards(transform.position, movePoint[nextPoint].transform.position, speed * Time.deltaTime);
+ 
+                     //次のポイントへ移動
+                     rb.MovePosition(toVector);
+                 }
+                 //次のポイントを１つ進める
+                 else
+                 {
+                     rb.MovePosition(movePoint[nextPoint].transform.position);
+                     ++nowPoint;
+ 
+                     //現在地が配列の最後だった場合
+                     if (nowPoint + 1 >= movePoint.Length)
+                     {
+                         returnPoint = true;
+                     }
+                 }
+             }
+             //折返し進行
+             else
+             {
+                 int nextPoint = nowPoint - 1;
+ 
+                 //目標ポイントとの誤差がわずかになるまで移動
+                 if (Vector2.Distance(transform.position, movePoint[nextPoint].transform.position) > 0.1f)
+                 {
+                     //現在地から次のポイントへのベクトルを作成
+                     Vector2 toVector = Vector2.MoveTowards(transform.position, movePoint[nextPoint].transform.position, speed * Time.deltaTime);
+ 
+                     //次のポイントへ移動
+                     rb.MovePosition(toVector);
+                 }
+                 //次のポイントを１つ戻す
+                 else
+                 {
+                     rb.MovePosition(movePoint[nextPoint].transform.position);
+                     --nowPoint;
+ 
+                     //現在地が配列の最初だった場合
+                     if (nowPoint <= 0)
+                     {
+                         returnPoint = false;
+                     }
+                 }
+             }
+         }
+     }
+ }
+=====================
+スクリプト内のコメントを読んでもらえればほぼわかると思いますが、一応解説すると
+if (Vector2.Distance(transform.position, movePoint[nextPoint].transform.position) > 0.1f)
+Vector2.Distanceというのは２つの位置の距離を測るメソッドです。現在位置と次の位置との距離を測って、距離が小さくなければという判定をしています。
+Time.deltaTimeを使用する場合、ぴったりな値になりづらく誤差が生じるのでこのようにちょっと幅を持たせています。
+//現在地から次のポイントへのベクトルを作成
+Vector2 toVector = Vector2.MoveTowards(transform.position, movePoint[nextPoint].transform.position, speed * Time.deltaTime);
+これはコメントに書いてある通りなんですが、現在地から次のポイントへのベクトルを作成しています。speed * Time.deltaTimeというのがここで生成される最大のベクトルの長さになるので、少しずつ移動することを表しています。
+//次のポイントへ移動
+rb.MovePosition(toVector);
+さらに↑も重要ポイントです。動く床はコライダーを持っているのでTransform系で移動させると重くなってしまいます。その為物理演算系で移動させる為Rigidbody2Dで移動させています。
+今までと同じようにvelocityを使いたいところですが、velocityだと「速さ」である為、正確に位置が取りづらい為MovePositionを使用しています。
+MovePositionはその位置までオブジェクトを移動させるという意味になります。
+ちなみに
+rb.position
+と
+rb.MovePosition
+の２種類が存在するのですが、上が空間転移で下が瞬間移動です。
+瞬間移動の話は↓の記事でまとめてあります。興味があったら見てみてください。
+ゲームのフレームとは【Unityゲーム制作基礎】 | ゲームの作り方！
+
+
+ぴよった！！　シーンに何も表示されなくなった　解決法　シーンタブを追加する　元のシーンタブは削除
+【Unity】Sceneビューに何も表示されなくなった時の解決法 - Qiita
+ぴょった！！　map_ground2が消える　１２３４を子オブジェクトにしていたのが原因
+下記のようにしたら動いて表示された
+
+map_ground2にMoveObjectスクリプトとリジッドボディ２Dを追加して下記のように設定する
+
+動く床のスクリプトの使用方法
+では、このスクリプトの使い方を説明します。
+ステージ管理の時に解説した事と同じことをします。
+まずは、カラのゲームオブジェクトを作成し、ゲームオブジェクトの左上の灰色の箱みたいな奴をクリックしてください。
+↓のようなメニューが出てきたと思います。
+
+適当に好きな色の奴を選んでください。できたら上２段の横長の物がいいと思います。
+そうすると、カラだったゲームオブジェクトがシーンビュー上で映るようになります。
+床は、このゲームオブジェクトの位置を順番に移動するようになります。
+
+↑のように設置しました。
+設置したゲームオブジェクトをインスペクターで設定します↓
+
+Rigidbody2Dもつけましょう。
+回転しないようにFreezeRotationのZにもチェックを入れます。
+ポイントとしては、Body TypeをKinematicにしましょう。
+Kinematicについての解説は↓の記事で行なっていますので詳しく知りたい方は参考にしてみてください。
+UnityのRigidbody【使い方とスクリプトとForce Mode】 | ゲームの作り方！
+
+何故Kinematicにするのか
+Kinematicというのは簡単に言うとその物体には物理演算が適用されません。そもそも動く床が物理の法則を無視しているので、適用しない方がいいですよね。
+あれ？それって意味あるのって話ですが、「その物体には」物理演算が適用されないのであって、その物体は物理演算が適用されている物体には影響します。
+この場合、動く床がプレイヤーにぶつかったとき、プレイヤーは動く床に押し出されますが、逆にプレイヤーが動く床にぶつかったとき、動く床はビクともしません。
+動く床 → プレイヤー に対しては物理演算が適用されるが プレイヤー → 動く床 には物理演算は適用されないということです。
+これで、プレイヤーが乗った重みなどで、動く床が沈んで行ってしまう等の物理演算をシカトしつつ、上に乗ることができます。
+ちなみに、プレイヤーは物理演算の計算結果を無視するためにvelocityで動かしていると以前解説しましたが、このKinematicとは全く違うものになります。
+プレイヤーをvelocityで動かすというのは物理演算は行うけど、速度に関する結果は破棄するという意味になります。つまり、衝突はするけど、衝突の際に発生した弾き飛ばし等のプレイヤーが速度をもってしまう結果を破棄しているということです。
+Kinematicは相手が物理演算で動いていないと衝突さえしません。動く床同士や、動く床とタイルマップは重なってもすり抜けます。こういう違いがあるわけですね。
+ちなみに、プレイヤーの物理演算を破棄している理由はこのような動く床などの物理の法則を無視したギミックが２Dアクションにはしばしば見られるからです。物理の法則を無視したヤツから物理的な介入を受けて予測不能な動きをしてしまうと困るからですね。
+
+動く床を動作させてみる
+設定が完了した状態で再生すると床が動く
+
+さて、これでオブジェクトを指定した経路通りに動かす事はできました。これは床以外の物にも使用できるので便利です。
+もし、床がガクガクして動く場合は床のRigidobody 2DのInterpolateのところをInterpolateにしてください。
+
+物理演算と描画のズレを補間してくれます。
+さて、これで動く床を作ることができました。
+しかし、動く床で使用する場合、上に乗っているプレイヤーが滑ってしまっているのがわかるかと思います。
+ちょっと動く床としてはアレなので動く床なりの工夫をします。
+
+動く床で滑らないようにする
+さて、動く床で滑らないようにする対策として、プレイヤーを床の子オブジェクトにするというやり方が有名です。
+しかしながら、その対策だと下の動きに非常に弱くなります。あとこのサイトではキャラクターの反転をスケールでしているので子オブジェクトにしてしまうと大きさが変になってしまいます。
+また、Surface Effector2Dを使う対策も存在するのですが、うまく動作しませんでした。
+また、Physic Material 2Dで摩擦係数を上げて滑らなくする方法もあるのですが、これはプレイヤーが横に動きづらくなってしまいます。
+その為、何か他のものに頼るのではなく、ちゃんと速度計算してあげる必要がありそうです。
+
+速度計算を加えたオブジェクトを動かすスクリプト
+MoveObject
+=====================
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class MoveObject : MonoBehaviour
+{
+    [Header("移動経路")] public GameObject[] movePoint;
+    [Header("速さ")] public float speed = 1.0f;
+
+    private Rigidbody2D rb;
+    private int nowPoint = 0;
+    private bool returnPoint = false;
+    private Vector2 oldPos = Vector2.zero;
+    private Vector2 myVelocity = Vector2.zero;
+
+
+    private void Start()
+    {
+        rb = GetComponent<Rigidbody2D>();
+        if (movePoint != null && movePoint.Length > 0 && rb != null)
+        {
+            rb.position = movePoint[0].transform.position;
+            oldPos = rb.position;
+        }
+    }
+
+    public Vector2 GetVelocity()
+    {
+        return myVelocity;
+    }
+
+    private void FixedUpdate()
+    {
+        if (movePoint != null && movePoint.Length > 1 && rb != null)
+        {
+            //通常進行
+            if (!returnPoint)
+            {
+                int nextPoint = nowPoint + 1;
+
+                //目標ポイントとの誤差がわずかになるまで移動
+                if (Vector2.Distance(transform.position, movePoint[nextPoint].transform.position) > 0.1f)
+                {
+                    //現在地から次のポイントへのベクトルを作成
+                    Vector2 toVector = Vector2.MoveTowards(transform.position, movePoint[nextPoint].transform.position, speed * Time.deltaTime);
+
+                    //次のポイントへ移動
+                    rb.MovePosition(toVector);
+                }
+                //次のポイントを１つ進める
+                else
+                {
+                    rb.MovePosition(movePoint[nextPoint].transform.position);
+                    ++nowPoint;
+
+                    //現在地が配列の最後だった場合
+                    if (nowPoint + 1 >= movePoint.Length)
+                    {
+                        returnPoint = true;
+                    }
+                }
+            }
+            //折返し進行
+            else
+            {
+                int nextPoint = nowPoint - 1;
+
+                //目標ポイントとの誤差がわずかになるまで移動
+                if (Vector2.Distance(transform.position, movePoint[nextPoint].transform.position) > 0.1f)
+                {
+                    //現在地から次のポイントへのベクトルを作成
+                    Vector2 toVector = Vector2.MoveTowards(transform.position, movePoint[nextPoint].transform.position, speed * Time.deltaTime);
+
+                    //次のポイントへ移動
+                    rb.MovePosition(toVector);
+                }
+                //次のポイントを１つ戻す
+                else
+                {
+                    rb.MovePosition(movePoint[nextPoint].transform.position);
+                    --nowPoint;
+
+                    //現在地が配列の最初だった場合
+                    if (nowPoint <= 0)
+                    {
+                        returnPoint = false;
+                    }
+                }
+            }
+            myVelocity = (rb.position - oldPos) / Time.deltaTime;
+            oldPos = rb.position;
+        }
+    }
+}
+=====================
+↓この２つの変数を追加して速度を求めます。
+private Vector2 oldPos = Vector2.zero;
+private Vector2 myVelocity = Vector2.zero;
+oldPosに前のフレームの位置を保存します。そして現在の位置から引く事で進んだ距離が出せます。
+myVelocity = (rb.position - oldPos) / Time.deltaTime;
+速さ　＝　道のり / 時間　なので、Time.deltaTimeで割ってあげれば床の速さが出ます。
+ここでタグを追加しましょう。Add Tagから
+
+MoveFloorというのを追加します。
+そして、動く床のタグをMoveFloorにします。
+map_ground2のタグをGroundPlatform→MoveFloor
+
+
+今度は接地判定にこのMoveFloorも地面だと認識させます。そして、プレイヤーの足元で床に触れた場合、その床の速度をとってくるようにします。
+
+接地判定に動く床を認識させたスクリプト
+GroundCheck
+=====================
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+public class GroundCheck : MonoBehaviour
+{
+    [Header("エフェクトがついた床を判定するか")] public bool checkPlatformGroud = true;
+
+    private string groundTag = "Ground";
+    private string platformTag = "GroundPlatform";
+    private string moveFloorTag = "MoveFloor";
+    private bool isGround = false;
+    private bool isGroundEnter, isGroundStay, isGroundExit;
+
+    //接地判定を返すメソッド
+    public bool IsGround()
+    {
+        if (isGroundEnter || isGroundStay)
+        {
+            isGround = true;
+        }
+        else if (isGroundExit)
+        {
+            isGround = false;
+        }
+
+        isGroundEnter = false;
+        isGroundStay = false;
+        isGroundExit = false;
+        return isGround;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == groundTag)
+        {
+            isGroundEnter = true;
+        }
+        else if (checkPlatformGroud && (collision.tag == platformTag || collision.tag == moveFloorTag))
+        {
+            isGroundEnter = true;
+        }
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.tag == groundTag)
+        {
+            isGroundStay = true;
+        }
+        else if (checkPlatformGroud && (collision.tag == platformTag || collision.tag == moveFloorTag))
+        {
+            isGroundStay = true;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.tag == groundTag)
+        {
+            isGroundExit = true;
+        }
+        else if (checkPlatformGroud && (collision.tag == platformTag || collision.tag == moveFloorTag))
+
+        {
+            isGroundExit = true;
+        }
+    }
+}
+=====================
+
+動く床の速度を加味したプレイヤーのスクリプト
+Player 
+=====================
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Player : MonoBehaviour
+{
+    #region//インスペクターで設定する
+    [Header("移動速度")] public float speed;
+    [Header("重力")] public float gravity;
+    [Header("ジャンプ速度")] public float jumpSpeed;
+    [Header("ジャンプする高さ")] public float jumpHeight;
+    [Header("ジャンプする長さ")] public float jumpLimitTime;
+    [Header("接地判定")] public GroundCheck ground;
+    [Header("天井判定")] public GroundCheck head;
+    [Header("ダッシュの速さ表現")] public AnimationCurve dashCurve;
+    [Header("ジャンプの速さ表現")] public AnimationCurve jumpCurve;
+    [Header("踏みつけ判定の高さの割合(%)")] public float stepOnRate;
+    [Header("ジャンプする時に鳴らすSE")] public AudioClip jumpSE; //New!
+    [Header("やられた鳴らすSE")] public AudioClip downSE; //New
+    [Header("コンティニュー時に鳴らすSE")] public AudioClip continueSE;  //New
+    #endregion
+
+    #region//プライベート変数
+    private Animator anim = null;
+    private Rigidbody2D rb = null;
+    private CapsuleCollider2D capcol = null;
+    private SpriteRenderer sr = null;
+    private MoveObject moveObj = null;　　//①
+    private bool isGround = false;
+    private bool isJump = false;
+    private bool isHead = false;
+    private bool isRun = false;
+    private bool isDown = false;
+    private bool isOtherJump = false;
+    private bool isContinue = false;
+    private bool nonDownAnim = false;
+    private float jumpPos = 0.0f;
+    private float otherJumpHeight = 0.0f;
+    private float dashTime = 0.0f;
+    private float jumpTime = 0.0f;
+    private float beforeKey = 0.0f;
+    private float continueTime = 0.0f;
+    private float blinkTime = 0.0f;
+    private string enemyTag = "Enemy";
+    private string deadAreaTag = "DeadArea";
+    private string hitAreaTag = "HitArea";
+    private string moveFloorTag = "MoveFloor";
+    #endregion
+
+    void Start()
+    {
+        //コンポーネントのインスタンスを捕まえる
+        anim = GetComponent<Animator>();
+        rb = GetComponent<Rigidbody2D>();
+        capcol = GetComponent<CapsuleCollider2D>();
+        sr = GetComponent<SpriteRenderer>();
+    }
+
+    private void Update()
+    {
+        if (isContinue)
+        {
+            //明滅　ついている時に戻る
+            if (blinkTime > 0.2f)
+            {
+                sr.enabled = true;
+                blinkTime = 0.0f;
+            }
+            //明滅　消えているとき
+            else if (blinkTime > 0.1f)
+            {
+                sr.enabled = false;
+            }
+            //明滅　ついているとき
+            else
+            {
+                sr.enabled = true;
+            }
+            //1秒たったら明滅終わり
+            if (continueTime > 1.0f)
+            {
+                isContinue = false;
+                blinkTime = 0.0f;
+                continueTime = 0.0f;
+                sr.enabled = true;
+            }
+            else
+            {
+                blinkTime += Time.deltaTime;
+                continueTime += Time.deltaTime;
+            }
+        }
+    }
+
+    void FixedUpdate()
+    {
+        if (!isDown && !GManager.instance.isGameOver)
+        {
+            //接地判定を得る
+            isGround = ground.IsGround();
+            isHead = head.IsGround();
+
+            //各種座標軸の速度を求める
+            float xSpeed = GetXSpeed();
+            float ySpeed = GetYSpeed();
+
+            //アニメーションを適用
+            SetAnimation();
+
+            //移動速度を設定　③取得した床から速度を持ってきて、プレイヤーの速度に加算してあげます。
+            Vector2 addVelocity = Vector2.zero;
+            if (moveObj != null)
+            {
+                addVelocity = moveObj.GetVelocity();
+            }
+            rb.velocity = new Vector2(xSpeed, ySpeed) + addVelocity;
+        }
+        else
+        {
+            rb.velocity = new Vector2(0, -gravity);
+        }
+    }
+
+    /// <summary>
+    /// Y成分で必要な計算をし、速度を返す。
+    /// </summary>
+    /// <returns>Y軸の速さ</returns>
+    private float GetYSpeed()
+    {
+        float verticalKey = Input.GetAxis("Vertical");
+        float ySpeed = -gravity;
+
+        //何かを踏んだ際のジャンプ
+        if (isOtherJump)
+        {
+            //現在の高さが飛べる高さより下か
+            bool canHeight = jumpPos + otherJumpHeight > transform.position.y;
+            //ジャンプ時間が長くなりすぎてないか
+            bool canTime = jumpLimitTime > jumpTime;
+
+            if (canHeight && canTime && !isHead)
+            {
+                ySpeed = jumpSpeed;
+                jumpTime += Time.deltaTime;
+            }
+            else
+            {
+                isOtherJump = false;
+                jumpTime = 0.0f;
+            }
+        }
+        //地面にいるとき
+        else if (isGround)
+        {
+            if (verticalKey > 0)
+            {
+                if (!isJump)
+                {
+                    GManager.instance.PlaySE(jumpSE); 
+                }
+                ySpeed = jumpSpeed;
+                jumpPos = transform.position.y; //ジャンプした位置を記録する
+                isJump = true;
+                jumpTime = 0.0f;
+            }
+            else
+            {
+                isJump = false;
+            }
+        }
+        //ジャンプ中
+        else if (isJump)
+        {
+            //上方向キーを押しているか
+            bool pushUpKey = verticalKey > 0;
+            //現在の高さが飛べる高さより下か
+            bool canHeight = jumpPos + jumpHeight > transform.position.y;
+            //ジャンプ時間が長くなりすぎてないか
+            bool canTime = jumpLimitTime > jumpTime;
+
+            if (pushUpKey && canHeight && canTime && !isHead)
+            {
+                ySpeed = jumpSpeed;
+                jumpTime += Time.deltaTime;
+            }
+            else
+            {
+                isJump = false;
+                jumpTime = 0.0f;
+            }
+        }
+
+        if (isJump || isOtherJump)
+        {
+            ySpeed *= jumpCurve.Evaluate(jumpTime);
+        }
+        return ySpeed;
+    }
+
+
+    /// <summary>
+    /// X成分で必要な計算をし、速度を返す。
+    /// </summary>
+    /// <returns>X軸の速さ</returns>
+    private float GetXSpeed()
+    {
+        float horizontalKey = Input.GetAxis("Horizontal");
+        float xSpeed = 0.0f;
+
+        if (horizontalKey > 0)
+        {
+            transform.localScale = new Vector3(1, 1, 1);
+            isRun = true;
+            dashTime += Time.deltaTime;
+            xSpeed = speed;
+        }
+        else if (horizontalKey < 0)
+        {
+            transform.localScale = new Vector3(-1, 1, 1);
+            isRun = true;
+            dashTime += Time.deltaTime;
+            xSpeed = -speed;
+        }
+        else
+        {
+            isRun = false;
+            xSpeed = 0.0f;
+            dashTime = 0.0f;
+        }
+
+        //前回の入力からダッシュの反転を判断して速度を変える
+        if (horizontalKey > 0 && beforeKey < 0)
+        {
+            dashTime = 0.0f;
+        }
+        else if (horizontalKey < 0 && beforeKey > 0)
+        {
+            dashTime = 0.0f;
+        }
+
+        xSpeed *= dashCurve.Evaluate(dashTime);
+        beforeKey = horizontalKey;
+        return xSpeed;
+    }
+
+    /// <summary>
+    /// アニメーションを設定する
+    /// </summary>
+    private void SetAnimation()
+    {
+        anim.SetBool("jump", isJump || isOtherJump);
+        anim.SetBool("ground", isGround);
+        anim.SetBool("run", isRun);
+    }
+
+
+    /// <summary>
+    /// コンティニュー待機状態か
+    /// </summary>
+    /// <returns></returns>
+    public bool IsContinueWaiting()
+    {
+        if (GManager.instance.isGameOver)
+        {
+            return false;
+        }
+        else
+        {
+            return IsDownAnimEnd() || nonDownAnim;
+        }
+    }
+
+    //ダウンアニメーションが完了しているかどうか
+    private bool IsDownAnimEnd()
+    {
+        if (isDown && anim != null)
+        {
+            AnimatorStateInfo currentState = anim.GetCurrentAnimatorStateInfo(0);
+            if (currentState.IsName("player_down"))
+            {
+                if (currentState.normalizedTime >= 1)
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    /// <summary>
+    /// コンティニューする
+    /// </summary>
+    public void ContinuePlayer()
+    {
+        GManager.instance.PlaySE(continueSE);  
+        isDown = false;
+        anim.Play("player_stand");
+        isJump = false;
+        isOtherJump = false;
+        isRun = false;
+        isContinue = true;
+        nonDownAnim = false;
+    }
+
+    //やられた時の処理
+    private void ReceiveDamage(bool downAnim)
+    {
+        if (isDown)
+        {
+            return;
+        }
+        else
+        {
+            if (downAnim)
+            {
+                anim.Play("player_down");
+            }
+            else
+            {
+                nonDownAnim = true;
+            }
+            isDown = true;
+            GManager.instance.PlaySE(downSE); 
+            GManager.instance.SubHeartNum();
+        }
+    }
+
+    #region//接触判定
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.collider.tag == enemyTag)
+        {
+            //踏みつけ判定になる高さ
+            float stepOnHeight = (capcol.size.y * (stepOnRate / 100f));
+
+            //踏みつけ判定のワールド座標
+            float judgePos = transform.position.y - (capcol.size.y / 2f) + stepOnHeight;
+
+            foreach (ContactPoint2D p in collision.contacts)
+            {
+                if (p.point.y < judgePos)
+                {
+                    ObjectCollision o = collision.gameObject.GetComponent<ObjectCollision>();
+                    if (o != null)
+                    {
+                        otherJumpHeight = o.boundHeight;    //踏んづけたものから跳ねる高さを取得する
+                        o.playerStepOn = true;        //踏んづけたものに対して踏んづけた事を通知する
+                        jumpPos = transform.position.y; //ジャンプした位置を記録する
+                        isOtherJump = true;
+                        isJump = false;
+                        jumpTime = 0.0f;
+                    }
+                    else
+                    {
+                        Debug.Log("ObjectCollisionが付いてないよ!");
+                    }
+                }
+                else
+                {
+                    ReceiveDamage(true);
+                    break;
+                }
+            }
+        }
+        //動く床	②接触判定でタグが動く床だった場合、足元で接触しているかどうかを見て、その床についているMoveObjectをとってくるようにしています。
+        else if (collision.collider.tag == moveFloorTag)
+        {
+            //踏みつけ判定になる高さ
+            float stepOnHeight = (capcol.size.y * (stepOnRate / 100f));
+            //踏みつけ判定のワールド座標
+            float judgePos = transform.position.y - (capcol.size.y / 2f) + stepOnHeight;
+            foreach (ContactPoint2D p in collision.contacts)
+            {
+                //動く床に乗っている
+                if (p.point.y < judgePos)
+                {
+                    moveObj = collision.gameObject.GetComponent<MoveObject>();
+                }
+            }
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)　//④床から離れたらnullを入れてあげる事で加算する速度を無しにします。
+    {
+        if (collision.collider.tag == moveFloorTag)
+        {
+            //動く床から離れた
+            moveObj = null;
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == deadAreaTag)
+        {
+            ReceiveDamage(false);
+        }
+        else if (collision.tag == hitAreaTag)
+        {
+            ReceiveDamage(true);
+        }
+    }
+    #endregion
+}
+=====================
+これで動く床にちゃんと計算された形で乗る事ができるようになりました。
+こういった物理法則を無視するオブジェクトにちゃんと対応できるようにするためにAddForceなどを使わずvelocityで計算していたわけですね。
+
+カメラとデッドエリアを広げる　すり抜けるだけの床を再配置（右上）
+Box Clooider 2Dエフェクターで使用☑　コライダーの編集　薄くする			 Platform Effector 2D　		タグGroundPlatform 
+
+
+＜落ちる床＞
+落ちる床を作成する際にする工夫
+続いて落ちる床を実装していきます。
+落ちる床を作る際にちょっとした工夫を施します。
+
+↑のように２つのゲームオブジェクトに分けます。
+このようにオブジェクトを分けるのは演出をする為です。
+いきなりパッと落下されるとプレイヤーも困ると思うので、ちょっとふるふると震動してから落ちるようにしたいと思います。
+この時、コライダーまで揺れてしまうと、プレイヤーも震動してしまうので、これを回避するために、コライダーとレンダラーを分けています。
+ではこれらのゲームオブジェクトの設定を順に解説していきます。
+まず、スプライトレンダラーで落ちる床の絵だけを表示するオブジェクトを作成します。
+見た目だけ表示したいだけなのでSprite Rendererで絵を表示させて終わりです。
+これを適当にカラのゲームオブジェクトをつくり、子オブジェクトにします。
+次に↑のカラのゲームオブジェクト(FallFloor)にコライダーの判定をつけていきます。
+動く床の時と同じようにBox Collider 2D　コライダーの編集とPlatform Effector 2DとRigidbody2Dをつけ、キネマティックKinematic　回転を固定☑Z
+下準備の部分は動く床と一緒です。ただしSprite Rendererだけ無い状態です。
+そして、ここに、以前作成したプレイヤーが踏んだことを通知するスクリプトをつけます。
+
+以前作成したプレイヤーが踏んだことを通知するスクリプト
+ObjectCollision 
+=====================
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class ObjectCollision : MonoBehaviour
+{
+	[Header("これを踏んだ時のプレイヤーが跳ねる高さ")] public float boundHeight;
+
+	/// <summary>
+	/// このオブジェクトをプレイヤーが踏んだかどうか
+	/// </summary>
+	[HideInInspector] public bool playerStepOn;
+}
+=====================
+そして、↑のスクリプトから踏まれたことを検知して床を落下させるようにします。
+
+床を落下させるスクリプト New
+FallDownFloor
+=====================
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class FallDownFloor : MonoBehaviour
+{
+    [Header("スプライトがあるオブジェクト")] public GameObject spriteObj;
+    [Header("振動幅")] public float vibrationWidth = 0.05f;
+    [Header("振動速度")] public float vibrationSpeed = 30.0f;
+    [Header("落ちるまでの時間")] public float fallTime = 1.0f;
+    [Header("落ちていく速度")] public float fallSpeed = 10.0f;
+    [Header("落ちてから戻ってくる時間")] public float returnTime = 5.0f;
+
+    private bool isOn;
+    private bool isFall;
+    private bool isReturn;
+    private Vector3 spriteDefaultPos;
+    private Vector3 floorDefaultPos;
+    private Vector2 fallVelocity;
+    private BoxCollider2D col;
+    private Rigidbody2D rb;
+    private ObjectCollision oc;
+    private SpriteRenderer sr;
+    private float timer = 0.0f;
+    private float fallingTimer = 0.0f;
+    private float returnTimer = 0.0f;
+    private float blinkTimer = 0.0f;
+
+
+    private void Start()
+    {
+        //初期設定
+        col = GetComponent<BoxCollider2D>();
+        rb = GetComponent<Rigidbody2D>();
+        oc = GetComponent<ObjectCollision>();
+        if (spriteObj != null && oc != null && col != null && rb != null)
+        {
+            spriteDefaultPos = spriteObj.transform.position;
+            fallVelocity = new Vector2(0, -fallSpeed);
+            floorDefaultPos = gameObject.transform.position;
+            sr = spriteObj.GetComponent<SpriteRenderer>();
+            if (sr == null)
+            {
+                Debug.Log("fallDownFloor インスペクターに設定し忘れがあります");
+                Destroy(this);
+            }
+        }
+        else
+        {
+            Debug.Log("fallDownFloor インスペクターに設定し忘れがあります");
+            Destroy(this);
+        }
+    }
+
+    private void Update()
+    {
+        //プレイヤーが1回でも乗ったらフラグをオンに
+        if (oc.playerStepOn)
+        {
+            isOn = true;
+            oc.playerStepOn = false;
+        }
+
+        //プレイヤーがのってから落ちるまでの間
+        if (isOn && !isFall)
+        {
+            //震動する
+            spriteObj.transform.position = spriteDefaultPos + new Vector3(Mathf.Sin(timer * vibrationSpeed) * vibrationWidth, 0, 0);
+
+            //一定時間たったら落ちる
+            if (timer > fallTime)
+            {
+                isFall = true;
+            }
+
+            timer += Time.deltaTime;
+        }
+
+        //一定時間たつと明滅して戻ってくる
+        if (isReturn)
+        {
+            //明滅　ついている時に戻る
+            if (blinkTimer > 0.2f)
+            {
+                sr.enabled = true;
+                blinkTimer = 0.0f;
+            }
+            //明滅　消えているとき
+            else if (blinkTimer > 0.1f)
+            {
+                sr.enabled = false;
+            }
+            //明滅　ついているとき
+            else
+            {
+                sr.enabled = true;
+            }
+
+            //1秒たったら明滅終わり
+            if (returnTimer > 1.0f)
+            {
+                isReturn = false;
+                blinkTimer = 0f;
+                returnTimer = 0f;
+                sr.enabled = true;
+            }
+            else
+            {
+                blinkTimer += Time.deltaTime;
+                returnTimer += Time.deltaTime;
+            }
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        //落下中
+        if (isFall)
+        {
+            rb.velocity = fallVelocity;
+
+            //一定時間たつと元の位置に戻る
+            if (fallingTimer > fallTime)
+            {
+                isReturn = true;
+                transform.position = floorDefaultPos;
+                rb.velocity = Vector2.zero;
+                isFall = false;
+                timer = 0.0f;
+                fallingTimer = 0.0f;
+            }
+            else
+            {
+                fallingTimer += Time.deltaTime;
+                isOn = false;
+            }
+        }
+    }
+}
+=====================
+基本的にコメントを見ていただけるとほとんどわかると思いますが、プレイヤーが乗ったという判定を受け取ったら横に震動するようにします。
+//震動する
+spriteObj.transform.position = spriteDefaultPos + new Vector3(Mathf.Sin(timer * vibrationSpeed) * vibrationWidth,0,0);
+ここで震動させています。Rigidbody2Dを使っていないのは、絵だけに分離したため物理的な挙動で動かす必要が無い為です。
+Mathf.Sin(timer * vibrationSpeed)
+これで震動させています。三角関数のSinは角度によって-1〜1の範囲をくるくる回る性質があります。
+正弦波でググっていただけるとわかると思いますが、角度に時間を入れてあげることによって-1〜1の間で震動しているように見えます。
+これに自分で設定した震動幅をかけてあげることによって震動を実装する事ができます。
+一定時間震動したら、今度は落下します。
+rb.velocity = fallVelocity;
+落下はコライダーが関係するのでRigidbody2Dで動かします。FixedUpdateに書いている点にも注意が必要です。
+コンティニューや戻ってしまう場合も考えて、落下してしばらくしたら位置を戻してあげなければいけません。
+パッと戻られても困るので、プレイヤーの時と同じく明滅するようにします。
+
+FallFloorにFallDownFloorスクリプトを追加　スプライトがあるオブジェクトをFloorSpriteにする
+そして、新たにFallFloorというタグを作り、コライダーがついている方のゲームオブジェクトのタグを変更します。
+
+そして、プレイヤーが落下床を踏んだ時、落下床に対して踏んづけた通知する処理を追加します。
+
+落下床の判定を追加した接地判定
+GroundCheck
+=====================
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+public class GroundCheck : MonoBehaviour
+{
+    [Header("エフェクトがついた床を判定するか")] public bool checkPlatformGroud = true;
+
+    private string groundTag = "Ground";
+    private string platformTag = "GroundPlatform";
+    private string moveFloorTag = "MoveFloor";
+    private string fallFloorTag = "FallFloor";
+    private bool isGround = false;
+    private bool isGroundEnter, isGroundStay, isGroundExit;
+
+    //接地判定を返すメソッド
+    public bool IsGround()
+    {
+        if (isGroundEnter || isGroundStay)
+        {
+            isGround = true;
+        }
+        else if (isGroundExit)
+        {
+            isGround = false;
+        }
+        isGroundEnter = false;
+        isGroundStay = false;
+        isGroundExit = false;
+        return isGround;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == groundTag)
+        {
+            isGroundEnter = true;
+        }
+        else if (checkPlatformGroud && (collision.tag == platformTag || collision.tag == moveFloorTag  || collision.tag == fallFloorTag))
+        {
+            isGroundEnter = true;
+        }
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.tag == groundTag)
+        {
+            isGroundStay = true;
+        }
+        else if (checkPlatformGroud && (collision.tag == platformTag || collision.tag == moveFloorTag  || collision.tag == fallFloorTag))
+        {
+            isGroundStay = true;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.tag == groundTag)
+        {
+            isGroundExit = true;
+        }
+        else if (checkPlatformGroud && (collision.tag == platformTag || collision.tag == moveFloorTag  || collision.tag == fallFloorTag))
+        {
+            isGroundExit = true;
+        }
+    }
+}
+=====================
+
+
+落下床に踏んだ判定を渡せるようにしたプレイヤー
+Player 
+=====================
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Player : MonoBehaviour
+{
+    #region//インスペクターで設定する
+    [Header("移動速度")] public float speed;
+    [Header("重力")] public float gravity;
+    [Header("ジャンプ速度")] public float jumpSpeed;
+    [Header("ジャンプする高さ")] public float jumpHeight;
+    [Header("ジャンプする長さ")] public float jumpLimitTime;
+    [Header("接地判定")] public GroundCheck ground;
+    [Header("天井判定")] public GroundCheck head;
+    [Header("ダッシュの速さ表現")] public AnimationCurve dashCurve;
+    [Header("ジャンプの速さ表現")] public AnimationCurve jumpCurve;
+    [Header("踏みつけ判定の高さの割合(%)")] public float stepOnRate;
+    [Header("ジャンプする時に鳴らすSE")] public AudioClip jumpSE;
+    [Header("やられた鳴らすSE")] public AudioClip downSE;
+    [Header("コンティニュー時に鳴らすSE")] public AudioClip continueSE;
+    #endregion
+
+
+    #region//プライベート変数
+    private Animator anim = null;
+    private Rigidbody2D rb = null;
+    private CapsuleCollider2D capcol = null;
+    private SpriteRenderer sr = null;
+    private MoveObject moveObj = null;
+    private bool isGround = false;
+    private bool isJump = false;
+    private bool isHead = false;
+    private bool isRun = false;
+    private bool isDown = false;
+    private bool isOtherJump = false;
+    private bool isContinue = false;
+    private bool nonDownAnim = false;
+    private float jumpPos = 0.0f;
+    private float otherJumpHeight = 0.0f;
+    private float dashTime = 0.0f;
+    private float jumpTime = 0.0f;
+    private float beforeKey = 0.0f;
+    private float continueTime = 0.0f;
+    private float blinkTime = 0.0f;
+    private string enemyTag = "Enemy";
+    private string deadAreaTag = "DeadArea";
+    private string hitAreaTag = "HitArea";
+    private string moveFloorTag = "MoveFloor";
+    private string fallFloorTag = "FallFloor";
+    #endregion
+
+    void Start()
+    {
+        //コンポーネントのインスタンスを捕まえる
+        anim = GetComponent<Animator>();
+        rb = GetComponent<Rigidbody2D>();
+        capcol = GetComponent<CapsuleCollider2D>();
+        sr = GetComponent<SpriteRenderer>();
+    }
+
+    private void Update()
+    {
+        if (isContinue)
+        {
+            //明滅　ついている時に戻る
+            if (blinkTime > 0.2f)
+            {
+                sr.enabled = true;
+                blinkTime = 0.0f;
+            }
+            //明滅　消えているとき
+            else if (blinkTime > 0.1f)
+            {
+                sr.enabled = false;
+            }
+            //明滅　ついているとき
+            else
+            {
+                sr.enabled = true;
+            }
+            //1秒たったら明滅終わり
+            if (continueTime > 1.0f)
+            {
+                isContinue = false;
+                blinkTime = 0.0f;
+                continueTime = 0.0f;
+                sr.enabled = true;
+            }
+            else
+            {
+                blinkTime += Time.deltaTime;
+                continueTime += Time.deltaTime;
+            }
+        }
+    }
+
+
+
+    void FixedUpdate()
+    {
+
+        if (!isDown && !GManager.instance.isGameOver)
+        {
+            //接地判定を得る
+            isGround = ground.IsGround();
+            isHead = head.IsGround();
+
+            //各種座標軸の速度を求める
+            float xSpeed = GetXSpeed();
+            float ySpeed = GetYSpeed();
+
+            //アニメーションを適用
+            SetAnimation();
+
+            //移動速度を設定
+            Vector2 addVelocity = Vector2.zero;
+            if (moveObj != null)
+            {
+                addVelocity = moveObj.GetVelocity();
+            }
+            rb.velocity = new Vector2(xSpeed, ySpeed) + addVelocity;
+        }
+        else
+        {
+            rb.velocity = new Vector2(0, -gravity);
+        }
+    }
+
+    /// <summary>
+    /// Y成分で必要な計算をし、速度を返す。
+    /// </summary>
+    /// <returns>Y軸の速さ</returns>
+    private float GetYSpeed()
+    {
+        float verticalKey = Input.GetAxis("Vertical");
+        float ySpeed = -gravity;
+
+        //何かを踏んだ際のジャンプ
+        if (isOtherJump)
+        {
+            //現在の高さが飛べる高さより下か
+            bool canHeight = jumpPos + otherJumpHeight > transform.position.y;
+            //ジャンプ時間が長くなりすぎてないか
+            bool canTime = jumpLimitTime > jumpTime;
+
+            if (canHeight && canTime && !isHead)
+            {
+                ySpeed = jumpSpeed;
+                jumpTime += Time.deltaTime;
+            }
+            else
+            {
+                isOtherJump = false;
+                jumpTime = 0.0f;
+            }
+        }
+        //地面にいるとき
+        else if (isGround)
+        {
+            if (verticalKey > 0)
+            {
+                if (!isJump)
+                {
+                    GManager.instance.PlaySE(jumpSE);
+                }
+                ySpeed = jumpSpeed;
+                jumpPos = transform.position.y; //ジャンプした位置を記録する
+                isJump = true;
+                jumpTime = 0.0f;
+            }
+            else
+            {
+                isJump = false;
+            }
+        }
+        //ジャンプ中
+        else if (isJump)
+        {
+            //上方向キーを押しているか
+            bool pushUpKey = verticalKey > 0;
+            //現在の高さが飛べる高さより下か
+            bool canHeight = jumpPos + jumpHeight > transform.position.y;
+            //ジャンプ時間が長くなりすぎてないか
+            bool canTime = jumpLimitTime > jumpTime;
+
+            if (pushUpKey && canHeight && canTime && !isHead)
+            {
+                ySpeed = jumpSpeed;
+                jumpTime += Time.deltaTime;
+            }
+            else
+            {
+                isJump = false;
+                jumpTime = 0.0f;
+            }
+        }
+
+        if (isJump || isOtherJump)
+        {
+            ySpeed *= jumpCurve.Evaluate(jumpTime);
+        }
+        return ySpeed;
+    }
+
+
+    /// <summary>
+    /// X成分で必要な計算をし、速度を返す。
+    /// </summary>
+    /// <returns>X軸の速さ</returns>
+    private float GetXSpeed()
+    {
+        float horizontalKey = Input.GetAxis("Horizontal");
+        float xSpeed = 0.0f;
+
+        if (horizontalKey > 0)
+        {
+            transform.localScale = new Vector3(1, 1, 1);
+            isRun = true;
+            dashTime += Time.deltaTime;
+            xSpeed = speed;
+        }
+        else if (horizontalKey < 0)
+        {
+            transform.localScale = new Vector3(-1, 1, 1);
+            isRun = true;
+            dashTime += Time.deltaTime;
+            xSpeed = -speed;
+        }
+        else
+        {
+            isRun = false;
+            xSpeed = 0.0f;
+            dashTime = 0.0f;
+        }
+
+        //前回の入力からダッシュの反転を判断して速度を変える
+        if (horizontalKey > 0 && beforeKey < 0)
+        {
+            dashTime = 0.0f;
+        }
+        else if (horizontalKey < 0 && beforeKey > 0)
+        {
+            dashTime = 0.0f;
+        }
+
+        xSpeed *= dashCurve.Evaluate(dashTime);
+        beforeKey = horizontalKey;
+        return xSpeed;
+    }
+
+    /// <summary>
+    /// アニメーションを設定する
+    /// </summary>
+    private void SetAnimation()
+    {
+        anim.SetBool("jump", isJump || isOtherJump);
+        anim.SetBool("ground", isGround);
+        anim.SetBool("run", isRun);
+    }
+
+    /// <summary>
+    /// コンティニュー待機状態か
+    /// </summary>
+    /// <returns></returns>
+    public bool IsContinueWaiting()
+    {
+        if (GManager.instance.isGameOver)
+        {
+            return false;
+        }
+        else
+        {
+            return IsDownAnimEnd() || nonDownAnim;
+        }
+    }
+
+    //ダウンアニメーションが完了しているかどうか
+    private bool IsDownAnimEnd()
+    {
+        if (isDown && anim != null)
+        {
+            AnimatorStateInfo currentState = anim.GetCurrentAnimatorStateInfo(0);
+            if (currentState.IsName("player_down"))
+            {
+                if (currentState.normalizedTime >= 1)
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    /// <summary>
+    /// コンティニューする
+    /// </summary>
+    public void ContinuePlayer()
+    {
+        GManager.instance.PlaySE(continueSE);
+        isDown = false;
+        anim.Play("player_stand");
+        isJump = false;
+        isOtherJump = false;
+        isRun = false;
+        isContinue = true;
+        nonDownAnim = false;
+    }
+
+    //やられた時の処理
+    private void ReceiveDamage(bool downAnim)
+    {
+        if (isDown)
+        {
+            return;
+        }
+        else
+        {
+            if (downAnim)
+            {
+                anim.Play("player_down");
+            }
+            else
+            {
+                nonDownAnim = true;
+            }
+            isDown = true;
+            GManager.instance.PlaySE(downSE);
+            GManager.instance.SubHeartNum();
+        }
+    }
+
+    #region//接触判定
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.collider.tag == enemyTag)
+        {
+            //踏みつけ判定になる高さ
+            float stepOnHeight = (capcol.size.y * (stepOnRate / 100f));
+
+            //踏みつけ判定のワールド座標
+            float judgePos = transform.position.y - (capcol.size.y / 2f) + stepOnHeight;
+
+            foreach (ContactPoint2D p in collision.contacts)
+            {
+                if (p.point.y < judgePos)
+                {
+                    ObjectCollision o = collision.gameObject.GetComponent<ObjectCollision>();
+                    if (o != null)
+                    {
+                        otherJumpHeight = o.boundHeight;    //踏んづけたものから跳ねる高さを取得する
+                        o.playerStepOn = true;        //踏んづけたものに対して踏んづけた事を通知する
+                        jumpPos = transform.position.y; //ジャンプした位置を記録する
+                        isOtherJump = true;
+                        isJump = false;
+                        jumpTime = 0.0f;
+                    }
+                    else
+                    {
+                        Debug.Log("ObjectCollisionが付いてないよ!");
+                    }
+                }
+                else
+                {
+                    ReceiveDamage(true);
+                    break;
+                }
+            }
+        }
+        //動く床
+        else if (collision.collider.tag == moveFloorTag)
+        {
+            //踏みつけ判定になる高さ
+            float stepOnHeight = (capcol.size.y * (stepOnRate / 100f));
+            //踏みつけ判定のワールド座標
+            float judgePos = transform.position.y - (capcol.size.y / 2f) + stepOnHeight;
+            foreach (ContactPoint2D p in collision.contacts)
+            {
+                //動く床に乗っている
+                if (p.point.y < judgePos)
+                {
+                    moveObj = collision.gameObject.GetComponent<MoveObject>();
+                }
+            }
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.collider.tag == moveFloorTag)
+        {
+            //動く床から離れた
+            moveObj = null;
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == deadAreaTag)
+        {
+            ReceiveDamage(false);
+        }
+        else if (collision.tag == hitAreaTag)
+        {
+            ReceiveDamage(true);
+        }
+    }
+    #endregion
+}
+=====================
+動く床の時と同じように踏んづけた判定を追加していくのですが、ちょっと多くなってきたのでまとめています。
+ #region//接触判定
+ private void OnCollisionEnter2D(Collision2D collision)
+    {
+        bool enemy = (collision.collider.tag == enemyTag);
+        bool moveFloor = (collision.collider.tag == moveFloorTag);
+        bool fallFloor = (collision.collider.tag == fallFloorTag);
+
+        if (enemy || moveFloor || fallFloor)
+        {
+            //踏みつけ判定になる高さ
+            float stepOnHeight = (capcol.size.y * (stepOnRate / 100f));
+
+            //踏みつけ判定のワールド座標
+            float judgePos = transform.position.y - (capcol.size.y / 2f) + stepOnHeight;
+
+            foreach (ContactPoint2D p in collision.contacts)
+            {
+                if (p.point.y < judgePos)
+                {
+                    if (enemy || fallFloor)
+                    {
+                        ObjectCollision o = collision.gameObject.GetComponent<ObjectCollision>();
+                        if (o != null)
+                        {
+                            if (enemy)
+                            {
+                                otherJumpHeight = o.boundHeight;    //踏んづけたものから跳ねる高さを取得する
+                                o.playerStepOn = true;        //踏んづけたものに対して踏んづけた事を通知する
+                                jumpPos = transform.position.y; //ジャンプした位置を記録する
+                                isOtherJump = true;
+                                isJump = false;
+                                jumpTime = 0.0f;
+			    }
+			    else if(fallFloor)
+			    {
+                                o.playerStepOn = true;
+			    }
+                        }
+                        else
+                        {
+                            Debug.Log("ObjectCollisionが付いてないよ!");
+                        }
+		    }
+		    else if(moveFloor)
+		    {
+                        moveObj = collision.gameObject.GetComponent<MoveObject>();
+                    }
+                }
+                else
+                {
+                    if (enemy)
+                    {
+                        ReceiveDamage(true);
+                        break;
+                    }
+                }
+            }
+        }
+    }
+    #endregion
+=====================
+ヒエラルキーFallFloorにObject Collisionスクリプトをはりつける
+ヒエラルキーFallFloorにFall Down Floorスクリプトをはりつける
+スプライトがあるオブジェクトをFloorSpriteにする
+ヒエラルキーFloorSpriteのタグはGround
+これで落ちる床を実装する事ができました。
+ヒエラルキーにFloorオブジェクトを追加してフロア３つををまとめた
+Floor				頭ぶつけないで上がれるフロア
+MoveFloor MovePoint	頭ぶつけないで動くフロア
+FallFloor				頭ぶつけないで落ちるフロア
+
+
+
+＃５５かな？　	Unity 2Dアクションの作り方【コンティニュー・ステージクリア・メッセージ表示】
+Unity 2Dアクションの作り方【コンティニュー・ステージクリア・メッセージ表示】 | ゲームの作り方！
+
+＜メッセージを表示する＞
+さて、まずはメッセージを表示する機能を作ってみます。
+プレイヤーが特定の場所に近づいたらメッセージを表示する事で様々な事ができます。アクションゲームにストーリー性を持たせることもできますし、最初に操作方法を表示するなどチュートリアルも作成する事ができます。
+まずは、プレイヤーが範囲内に入ったらという判定を作ります。といっても以前に作成したものを使えばうまくいきそうですね。
+
+以前作成したプレイヤーの侵入を検知するスクリプト
+PlayerTriggerCheckスクリプト
+
+↑ヒエラルキー空のオブジェクトで作成　
+PlayerTriggerIn
+をプレハブにする
+PlayerTriggerInインスペクターはBox Collider 2D☑トリガーにする　PlayerTriggerCheckスクリプト
+単純にメッセージを表示するだけならプレイヤーが範囲内に入ったらSetActive(true)にしてあげればいいだけですが、パッと出てパッと消えるとちょっと無機質なので演出を加えます。
+
+↑コライダーの編集をしてメッセージの下に合わせる
+
+Canvas
+レンダーモード　ワールド空間World Space 
+イベントカメラ　Main Camera(Camera)
+
+Panel
+コンポーネント追加　Canvas Group
+このコンポーネントはそのUGUIとその子オブジェクト全てのUGUIのアルファ値をコントロールする事ができます
+
+Text
+
+イメージの追加、バックグランドや文字の表示に苦労した
+次に↓のスクリプトをCanvasにくっつけます。
+範囲内に入るとメッセージを表示するスクリプト
+
+FadeActiveUGUIスクリプト　NEW
+=====================
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class FadeActiveUGUI : MonoBehaviour
+{
+    [Header("フェードスピード")] public float speed = 1.0f;
+    [Header("上昇量")] public float moveDis = 10.0f;
+    [Header("上昇時間")] public float moveTime = 1.0f;
+    [Header("キャンバスグループ")] public CanvasGroup cg;
+    [Header("プレイヤー判定")] public PlayerTriggerCheck trigger;
+
+    private Vector3 defaltPos;
+    private float timer = 0.0f;
+
+    private void Start()
+    {
+        //初期化
+        if (cg == null && trigger == null)
+        {
+            Debug.Log("インスペクターの設定が足りません");
+            Destroy(this);
+        }
+        else
+        {
+            cg.alpha = 0.0f;
+            defaltPos = cg.transform.position;
+            cg.transform.position = defaltPos - Vector3.up * moveDis;
+        }
+    }
+
+    private void Update()
+    {
+        //プレイヤーが範囲内に入った
+        if (trigger.isOn)
+        {
+            //上昇しながらフェードインする
+            if (cg.transform.position.y < defaltPos.y || cg.alpha < 1.0f)
+            {
+                cg.alpha = timer / moveTime;
+                cg.transform.position += Vector3.up * (moveDis / moveTime) * speed * Time.deltaTime;
+                timer += speed * Time.deltaTime;
+            }
+            //フェードイン完了
+            else
+            {
+                cg.alpha = 1.0f;
+                cg.transform.position = defaltPos;
+            }
+        }
+        //プレイヤーが範囲内にいない
+        else
+        {
+            //下降しながらフェードアウトする
+            if (cg.transform.position.y > defaltPos.y - moveDis || cg.alpha > 0.0f)
+            {
+                cg.alpha = timer / moveTime;
+                cg.transform.position -= Vector3.up * (moveDis / moveTime) * speed * Time.deltaTime;
+                timer -= speed * Time.deltaTime;
+            }
+            //フェードアウト完了
+            else
+            {
+                timer = 0.0f;
+                cg.alpha = 0.0f;
+                cg.transform.position = defaltPos - Vector3.up * moveDis;
+            }
+        }
+    }
+}
+=====================
+FadeActiveUGUIスクリプトをCanvasに入れ下記のように設定する
+
+インスペクターの値を設定します。上昇量というのはちょっと上に上がりながらフェードしてほしかったので入れています。上に上がる必要がなければ０を入れればOKです。
+それと、このスクリプトを使う上で、注意が必要なところがあります。
+
+PanelとTextのCanvas RendererのCull Transparent Meshに☑チェックを入れましょう。
+透明なオブジェクトというのは存在するだけで重くなってしまうので、このように対策する必要があります。フェードアウトしている時は消えていただきましょう。
+
+フェードしながらメッセージを表示する事ができました。
+
+
+＜コンティニューポイント＞
+続いてコンティニューポイントを作って行きます。
+まぁ、メッセージの表示ができたならほぼ一緒です。
+
+
+
+↑YとZをコンタクトポイントの座標に合わせる　かえるちゃんが変な場所からスタートしてた
+最終的に
+ContinuePoint		X0		Y0		Z0
+StartPos			X0		Y-2.5	Z0
+Continue1		X88		Y-2.5	Z0
+
+↑YZを０にする　緑のコライダーが変な位置にいた
+
+↑キャンバスをコピーして名前を変える(Continue1)
+Fade Active UGUIスクリプトはコンテニュー１から削除する
+↓かかしに差し替え
+
+↓このスクリプトをContinue1に入れる
+ContinuePointスクリプト　New
+=====================
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class ContinuePoint : MonoBehaviour
+{
+    [Header("コンティニュー番号")] public int continueNum;
+    [Header("音")] public AudioClip se;
+    [Header("プレイヤー判定")] public PlayerTriggerCheck trigger;
+    [Header("スピード")] public float speed = 3.0f;
+    [Header("動く幅")] public float moveDis = 3.0f;
+
+    private bool on = false;
+    private float kakudo = 0.0f;
+    private Vector3 defaultPos;
+    void Start()
+    {
+        //初期化
+        if (trigger == null)
+        {
+            Debug.Log("インスペクターの設定が足りません");
+            Destroy(this);
+        }
+        defaultPos = transform.position;
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        //プレイヤーが範囲内に入った
+        if (trigger.isOn && !on)
+        {
+            GManager.instance.continueNum = continueNum;
+            GManager.instance.PlaySE(se);
+            on = true;
+        }
+
+        if (on)
+        {
+            if (kakudo < 180.0f)
+            {
+                //sinカーブで振動させる
+                transform.position = defaultPos + Vector3.up * moveDis * Mathf.Sin(kakudo * Mathf.Deg2Rad);
+
+                //途中からちっちゃくなる
+                if (kakudo > 90.0f)
+                {
+                    transform.localScale = Vector3.one * (1 - ((kakudo - 90.0f) / 90.0f));
+                }
+                kakudo += 180.0f * Time.deltaTime * speed;
+            }
+            else
+            {
+                gameObject.SetActive(false);
+                on = false;
+            }
+        }
+    }
+}
+=====================
+プレイヤーが範囲内に入ったら音を鳴らして、コンティニュー位置をゲームマネージャーに報告します。
+//プレイヤーが範囲内に入った
+if (trigger.isOn && !on)
+{
+      GManager.instance.continueNum = continueNum;
+      GManager.instance.PlaySE(se);
+      on = true;
+}
+ステージコントローラーのインスペクターに追加してあげればコンティニューできるようになっています。
+
+Element1に入っているのでインスペクターで自分のコンティニュー番号を１にしてあげればコンティニューポイントの位置からスタートします。
+
+コンティニューポイントに接触した場合の演出をちょっと凝ってみました。
+if (kakudo < 180.0f)
+{
+        //sinカーブで振動させる
+        transform.position = defaultPos + Vector3.up * moveDis * Mathf.Sin(kakudo * Mathf.Deg2Rad);
+                 
+        //途中からちっちゃくなる
+        if(kakudo > 90.0f)
+        {
+             transform.localScale = Vector3.one * (1 - ((kakudo - 90.0f) / 90.0f));
+        }
+        kakudo += 180.0f * Time.deltaTime * speed;
+}
+サインカーブを用いて上下させています。変数名がkakudoなのでわかりやすいと思いますが、Mathf.Sinの中にはラジアンを入れてあげなければいけません。
+Mathf.Sin(kakudo * Mathf.Deg2Rad);
+↑で角度をラジアンに直しています。角度にMathf.Deg2Radというものを掛ければOKです。
+まぁ、わからなくても別に困ることではないので、わからなかったらなんかこんな方法もあるんだ程度に理解していただければと思います。
+
+これでコンテニューかかしポイントを作ることができた
+
+ヒエラルキーのキャンバスをメッセージに名前変更
+
+＜ステージクリアー＞
+次はステージクリアーを実装していきましょう。
+コンティニューができれば正直新しく覚えることは特にありません。
+
+クリアーを演出するスクリプト
+ClearEffect   NEW
+=====================
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+public class ClearEffect : MonoBehaviour
+{
+    [Header("拡大縮小のアニメーションカーブ")] public AnimationCurve curve;
+    [Header("ステージコントローラー")] public StageCtrl ctrl;
+    private bool comp = false;
+    private float timer;
+    private void Start()
+    {
+        transform.localScale = Vector3.zero;
+    }
+
+    private void Update()
+    {
+        if (!comp)
+        {
+            if (timer < 1.0f)
+            {
+                transform.localScale = Vector3.one * curve.Evaluate(timer);
+                timer += Time.deltaTime;
+            }
+            else
+            {
+                transform.localScale = Vector3.one;
+                ctrl.ChangeScene(GManager.instance.stageNum + 1);
+                comp = true;
+            }
+        }
+    }
+}
+=====================
+
+ステージクリアーを追加したゲームマネージャー
+GManager
+=====================
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class GManager : MonoBehaviour
+{
+    public static GManager instance = null;
+
+    [Header("スコア")] public int score;
+    [Header("現在のステージ")] public int stageNum;
+    [Header("現在の復帰位置")] public int continueNum;
+    [Header("現在の残機")] public int heartNum;
+    [Header("デフォルトの残機")] public int defaultHeartNum;
+    [HideInInspector] public bool isGameOver = false;
+    [HideInInspector] public bool isStageClear = false;
+
+
+    private AudioSource audioSource = null;
+
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(this.gameObject);
+        }
+        else
+        {
+            Destroy(this.gameObject);
+        }
+    }
+
+    private void Start()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
+
+    /// <summary>
+    /// 残機を１つ増やす
+    /// </summary>
+    public void AddHeartNum()
+    {
+        if (heartNum < 99)
+        {
+            ++heartNum;
+        }
+    }
+
+    /// <summary>
+    /// 残機を１つ減らす
+    /// </summary>
+    public void SubHeartNum()
+    {
+        if (heartNum > 0)
+        {
+            --heartNum;
+        }
+        else
+        {
+            isGameOver = true;
+        }
+    }
+
+    /// <summary>
+    /// 最初から始める時の処理
+    /// </summary>
+    public void RetryGame()
+    {
+        isGameOver = false;
+        heartNum = defaultHeartNum;
+        score = 0;
+        stageNum = 1;
+        continueNum = 0;
+    }
+
+    /// <summary>
+    /// SEを鳴らす
+    /// </summary>
+    public void PlaySE(AudioClip clip)
+    {
+        if (audioSource != null)
+        {
+            audioSource.PlayOneShot(clip);
+
+        }
+        else
+        {
+            Debug.Log("オーディオソースが設定されていません");
+        }
+    }
+}
+=====================
+
+
+ステージクリアーを追加したステージコントローラー
+StageCtrl
+=====================
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+
+public class StageCtrl : MonoBehaviour
+{
+    [Header("プレイヤーゲームオブジェクト")] public GameObject playerObj;
+    [Header("コンティニュー位置")] public GameObject[] continuePoint;
+    [Header("ゲームオーバー")] public GameObject gameOverObj;
+    [Header("フェード")] public FadeImage fade;
+    [Header("ゲームオーバー時に鳴らすSE")] public AudioClip gameOverSE;
+    [Header("リトライ時に鳴らすSE")] public AudioClip retrySE;
+    [Header("ステージクリアーSE")] public AudioClip stageClearSE;		//publicがないとエラーになるのでパブリックを追記
+    [Header("ステージクリア")] public GameObject stageClearObj;
+    [Header("ステージクリア判定")] public PlayerTriggerCheck stageClearTrigger;
+
+    private Player p;
+    private int nextStageNum;
+    private bool startFade = false;
+    private bool doGameOver = false;
+    private bool retryGame = false;
+    private bool doSceneChange = false;
+    private bool doClear = false;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        if (playerObj != null && continuePoint != null && continuePoint.Length > 0 && gameOverObj != null && fade != null && stageClearObj != null)
+        {
+            gameOverObj.SetActive(false);
+            stageClearObj.SetActive(false);
+            playerObj.transform.position = continuePoint[0].transform.position;
+            p = playerObj.GetComponent<Player>();
+            if (p == null)
+            {
+                Debug.Log("プレイヤーじゃない物がアタッチされているよ！");
+            }
+        }
+        else
+        {
+            Debug.Log("設定が足りてないよ！");
+        }
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        //ゲームオーバー時の処理
+        if (GManager.instance.isGameOver && !doGameOver)
+        {
+            gameOverObj.SetActive(true);
+            GManager.instance.PlaySE(gameOverSE); 
+            doGameOver = true;
+        }
+        //プレイヤーがやられた時の処理
+        else if (p != null && p.IsContinueWaiting() && !doGameOver)
+        {
+            if (continuePoint.Length > GManager.instance.continueNum)
+            {
+                playerObj.transform.position = continuePoint[GManager.instance.continueNum].transform.position;
+                p.ContinuePlayer();
+            }
+            else
+            {
+                Debug.Log("コンティニューポイントの設定が足りてないよ！");
+            }
+        }
+        else if (stageClearTrigger != null && stageClearTrigger.isOn && !doGameOver && !doClear)
+        {
+            StageClear();
+            doClear = true;
+        }
+
+        //ステージを切り替える
+        if (fade != null && startFade && !doSceneChange)
+        {
+            if (fade.IsFadeOutComplete())
+            {
+                //ゲームリトライ
+                if (retryGame)
+                {
+                    GManager.instance.RetryGame();
+                }
+                //次のステージ
+                else
+                {
+                    GManager.instance.stageNum = nextStageNum;
+                }
+                GManager.instance.isStageClear = false;
+                SceneManager.LoadScene("stage" + nextStageNum);
+                doSceneChange = true;
+            }
+        }
+    }
+
+    /// <summary>
+    /// 最初から始める
+    /// </summary>
+    public void Retry()
+    {
+        GManager.instance.PlaySE(retrySE); //New!
+        ChangeScene(1); //最初のステージに戻るので１
+        retryGame = true;
+    }
+
+    /// <summary>
+    /// ステージを切り替えます。
+    /// </summary>
+    /// <param name="num">ステージ番号</param>
+    public void ChangeScene(int num)
+    {
+        if (fade != null)
+        {
+            nextStageNum = num;
+            fade.StartFadeOut();
+            startFade = true;
+        }
+    }
+
+    /// <summary>
+    /// ステージをクリアした
+    /// </summary>
+    public void StageClear()
+    {
+        GManager.instance.isStageClear = true;
+        stageClearObj.SetActive(true);
+        GManager.instance.PlaySE(stageClearSE);
+    }
+}
+=====================
+
+ステージクリアーを追加したプレイヤー
+Player
+=====================
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Player : MonoBehaviour
+{
+    #region//インスペクターで設定する
+    [Header("移動速度")] public float speed;
+    [Header("重力")] public float gravity;
+    [Header("ジャンプ速度")] public float jumpSpeed;
+    [Header("ジャンプする高さ")] public float jumpHeight;
+    [Header("ジャンプする長さ")] public float jumpLimitTime;
+    [Header("接地判定")] public GroundCheck ground;
+    [Header("天井判定")] public GroundCheck head;
+    [Header("ダッシュの速さ表現")] public AnimationCurve dashCurve;
+    [Header("ジャンプの速さ表現")] public AnimationCurve jumpCurve;
+    [Header("踏みつけ判定の高さの割合(%)")] public float stepOnRate;
+    [Header("ジャンプする時に鳴らすSE")] public AudioClip jumpSE;
+    [Header("やられた鳴らすSE")] public AudioClip downSE;
+    [Header("コンティニュー時に鳴らすSE")] public AudioClip continueSE;
+    #endregion
+
+
+    #region//プライベート変数
+    private Animator anim = null;
+    private Rigidbody2D rb = null;
+    private CapsuleCollider2D capcol = null;
+    private SpriteRenderer sr = null;
+    private MoveObject moveObj = null;
+    private bool isGround = false;
+    private bool isJump = false;
+    private bool isHead = false;
+    private bool isRun = false;
+    private bool isDown = false;
+    private bool isOtherJump = false;
+    private bool isContinue = false;
+    private bool nonDownAnim = false;
+    private bool isClearMotion = false;
+    private float jumpPos = 0.0f;
+    private float otherJumpHeight = 0.0f;
+    private float dashTime = 0.0f;
+    private float jumpTime = 0.0f;
+    private float beforeKey = 0.0f;
+    private float continueTime = 0.0f;
+    private float blinkTime = 0.0f;
+    private string enemyTag = "Enemy";
+    private string deadAreaTag = "DeadArea";
+    private string hitAreaTag = "HitArea";
+    private string moveFloorTag = "MoveFloor";
+    private string fallFloorTag = "FallFloor";
+    #endregion
+
+    void Start()
+    {
+        //コンポーネントのインスタンスを捕まえる
+        anim = GetComponent<Animator>();
+        rb = GetComponent<Rigidbody2D>();
+        capcol = GetComponent<CapsuleCollider2D>();
+        sr = GetComponent<SpriteRenderer>();
+    }
+
+    private void Update()
+    {
+        if (isContinue)
+        {
+            //明滅　ついている時に戻る
+            if (blinkTime > 0.2f)
+            {
+                sr.enabled = true;
+                blinkTime = 0.0f;
+            }
+            //明滅　消えているとき
+            else if (blinkTime > 0.1f)
+            {
+                sr.enabled = false;
+            }
+            //明滅　ついているとき
+            else
+            {
+                sr.enabled = true;
+            }
+            //1秒たったら明滅終わり
+            if (continueTime > 1.0f)
+            {
+                isContinue = false;
+                blinkTime = 0.0f;
+                continueTime = 0.0f;
+                sr.enabled = true;
+            }
+            else
+            {
+                blinkTime += Time.deltaTime;
+                continueTime += Time.deltaTime;
+            }
+        }
+    }
+
+
+
+    void FixedUpdate()
+    {
+
+        if (!isDown && !GManager.instance.isGameOver  && !GManager.instance.isStageClear)
+        {
+            //接地判定を得る
+            isGround = ground.IsGround();
+            isHead = head.IsGround();
+
+            //各種座標軸の速度を求める
+            float xSpeed = GetXSpeed();
+            float ySpeed = GetYSpeed();
+
+            //アニメーションを適用
+            SetAnimation();
+
+            //移動速度を設定
+            Vector2 addVelocity = Vector2.zero;
+            if (moveObj != null)
+            {
+                addVelocity = moveObj.GetVelocity();
+            }
+            rb.velocity = new Vector2(xSpeed, ySpeed) + addVelocity;
+        }
+        else
+        {
+            if (!isClearMotion && GManager.instance.isStageClear)
+            {
+                anim.Play("player_win”);			//名前はクリアではなくウィンなのでウィンに修正　クリアだとアニメーションしない　名前違い
+                isClearMotion = true;
+            }
+            rb.velocity = new Vector2(0, -gravity);
+        }
+    }
+
+    /// <summary>
+    /// Y成分で必要な計算をし、速度を返す。
+    /// </summary>
+    /// <returns>Y軸の速さ</returns>
+    private float GetYSpeed()
+    {
+        float verticalKey = Input.GetAxis("Vertical");
+        float ySpeed = -gravity;
+
+        //何かを踏んだ際のジャンプ
+        if (isOtherJump)
+        {
+            //現在の高さが飛べる高さより下か
+            bool canHeight = jumpPos + otherJumpHeight > transform.position.y;
+            //ジャンプ時間が長くなりすぎてないか
+            bool canTime = jumpLimitTime > jumpTime;
+
+            if (canHeight && canTime && !isHead)
+            {
+                ySpeed = jumpSpeed;
+                jumpTime += Time.deltaTime;
+            }
+            else
+            {
+                isOtherJump = false;
+                jumpTime = 0.0f;
+            }
+        }
+        //地面にいるとき
+        else if (isGround)
+        {
+            if (verticalKey > 0)
+            {
+                if (!isJump)
+                {
+                    GManager.instance.PlaySE(jumpSE);
+                }
+                ySpeed = jumpSpeed;
+                jumpPos = transform.position.y; //ジャンプした位置を記録する
+                isJump = true;
+                jumpTime = 0.0f;
+            }
+            else
+            {
+                isJump = false;
+            }
+        }
+        //ジャンプ中
+        else if (isJump)
+        {
+            //上方向キーを押しているか
+            bool pushUpKey = verticalKey > 0;
+            //現在の高さが飛べる高さより下か
+            bool canHeight = jumpPos + jumpHeight > transform.position.y;
+            //ジャンプ時間が長くなりすぎてないか
+            bool canTime = jumpLimitTime > jumpTime;
+
+            if (pushUpKey && canHeight && canTime && !isHead)
+            {
+                ySpeed = jumpSpeed;
+                jumpTime += Time.deltaTime;
+            }
+            else
+            {
+                isJump = false;
+                jumpTime = 0.0f;
+            }
+        }
+
+        if (isJump || isOtherJump)
+        {
+            ySpeed *= jumpCurve.Evaluate(jumpTime);
+        }
+        return ySpeed;
+    }
+
+
+    /// <summary>
+    /// X成分で必要な計算をし、速度を返す。
+    /// </summary>
+    /// <returns>X軸の速さ</returns>
+    private float GetXSpeed()
+    {
+        float horizontalKey = Input.GetAxis("Horizontal");
+        float xSpeed = 0.0f;
+
+        if (horizontalKey > 0)
+        {
+            transform.localScale = new Vector3(1, 1, 1);
+            isRun = true;
+            dashTime += Time.deltaTime;
+            xSpeed = speed;
+        }
+        else if (horizontalKey < 0)
+        {
+            transform.localScale = new Vector3(-1, 1, 1);
+            isRun = true;
+            dashTime += Time.deltaTime;
+            xSpeed = -speed;
+        }
+        else
+        {
+            isRun = false;
+            xSpeed = 0.0f;
+            dashTime = 0.0f;
+        }
+
+        //前回の入力からダッシュの反転を判断して速度を変える
+        if (horizontalKey > 0 && beforeKey < 0)
+        {
+            dashTime = 0.0f;
+        }
+        else if (horizontalKey < 0 && beforeKey > 0)
+        {
+            dashTime = 0.0f;
+        }
+
+        xSpeed *= dashCurve.Evaluate(dashTime);
+        beforeKey = horizontalKey;
+        return xSpeed;
+    }
+
+    /// <summary>
+    /// アニメーションを設定する
+    /// </summary>
+    private void SetAnimation()
+    {
+        anim.SetBool("jump", isJump || isOtherJump);
+        anim.SetBool("ground", isGround);
+        anim.SetBool("run", isRun);
+    }
+
+    /// <summary>
+    /// コンティニュー待機状態か
+    /// </summary>
+    /// <returns></returns>
+    public bool IsContinueWaiting()
+    {
+        if (GManager.instance.isGameOver)
+        {
+            return false;
+        }
+        else
+        {
+            return IsDownAnimEnd() || nonDownAnim;
+        }
+    }
+
+    //ダウンアニメーションが完了しているかどうか
+    private bool IsDownAnimEnd()
+    {
+        if (isDown && anim != null)
+        {
+            AnimatorStateInfo currentState = anim.GetCurrentAnimatorStateInfo(0);
+            if (currentState.IsName("player_down"))
+            {
+                if (currentState.normalizedTime >= 1)
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    /// <summary>
+    /// コンティニューする
+    /// </summary>
+    public void ContinuePlayer()
+    {
+        GManager.instance.PlaySE(continueSE);
+        isDown = false;
+        anim.Play("player_stand");
+        isJump = false;
+        isOtherJump = false;
+        isRun = false;
+        isContinue = true;
+        nonDownAnim = false;
+    }
+
+    //やられた時の処理
+    private void ReceiveDamage(bool downAnim)
+    {
+        if (isDown || GManager.instance.isStageClear)
+        {
+            return;
+        }
+        else
+        {
+            if (downAnim)
+            {
+                anim.Play("player_down");
+            }
+            else
+            {
+                nonDownAnim = true;
+            }
+            isDown = true;
+            GManager.instance.PlaySE(downSE);
+            GManager.instance.SubHeartNum();
+        }
+    }
+
+    #region//接触判定
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        bool enemy = (collision.collider.tag == enemyTag);
+        bool moveFloor = (collision.collider.tag == moveFloorTag);
+        bool fallFloor = (collision.collider.tag == fallFloorTag);
+
+        if (enemy || moveFloor || fallFloor)
+        {
+            //踏みつけ判定になる高さ
+            float stepOnHeight = (capcol.size.y * (stepOnRate / 100f));
+
+            //踏みつけ判定のワールド座標
+            float judgePos = transform.position.y - (capcol.size.y / 2f) + stepOnHeight;
+
+            foreach (ContactPoint2D p in collision.contacts)
+            {
+                if (p.point.y < judgePos)
+                {
+                    if (enemy || fallFloor)
+                    {
+                        ObjectCollision o = collision.gameObject.GetComponent<ObjectCollision>();
+                        if (o != null)
+                        {
+                            if (enemy)
+                            {
+                                otherJumpHeight = o.boundHeight;    //踏んづけたものから跳ねる高さを取得する
+                                o.playerStepOn = true;        //踏んづけたものに対して踏んづけた事を通知する
+                                jumpPos = transform.position.y; //ジャンプした位置を記録する
+                                isOtherJump = true;
+                                isJump = false;
+                                jumpTime = 0.0f;
+                            }
+                            else if (fallFloor)
+                            {
+                                o.playerStepOn = true;
+                            }
+                        }
+                        else
+                        {
+                            Debug.Log("ObjectCollisionが付いてないよ!");
+                        }
+                    }
+                    else if (moveFloor)
+                    {
+                        moveObj = collision.gameObject.GetComponent<MoveObject>();
+                    }
+                }
+                else
+                {
+                    if (enemy)
+                    {
+                        ReceiveDamage(true);
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.collider.tag == moveFloorTag)
+        {
+            //動く床から離れた
+            moveObj = null;
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == deadAreaTag)
+        {
+            ReceiveDamage(false);
+        }
+        else if (collision.tag == hitAreaTag)
+        {
+            ReceiveDamage(true);
+        }
+    }
+    #endregion
+}
+=====================
+
+３日めに解決　ぴよりまくった　ステージクリアができなかった
+
+エラーメッセージ
+PlayOneShot was called with a null AudioClip.
+UnityEngine.AudioSource:PlayOneShot(AudioClip)
+GManager:PlaySE(AudioClip) (at Assets/Script/GManager.cs:82)
+StageCtrl:StageClear() (at Assets/Script/StageCtrl.cs:128)
+StageCtrl:Update() (at Assets/Script/StageCtrl.cs:71)
+
+↑StageCtrlスクリプト 
+[Header("ステージクリアーSE")] public AudioClip stageClearSE;
+パブリックをつけてSEを選択できるようにした
+
+Scene 'stage2' couldn't be loaded because it has not been added to the build settings or the AssetBundle has not been loaded.
+To add a scene to the build settings use the menu File->Build Settings...
+UnityEngine.SceneManagement.SceneManager:LoadScene(String)
+StageCtrl:Update() (at Assets/Script/StageCtrl.cs:91)
+シーン'stage2'がビルド設定に追加されていないか、AssetBundleがロードされていないため、シーン'stage2'をロードできませんでした。
+ビルド設定にシーンを追加するには、メニューのFile->Build Settings...を使用します。
+
+↑ステージ２を作成したらでなくなる　ステージ２のシーンを作成後、ファイルービルド設定ーシーンを追加
+
+
+□ClearStage↑
+Continue1をコピーして貼り付け　□ClearStageでキャンバスのレンダーモードをワールド空間　イベントカメラ　メインカメラ
+スクリーンスペース - カメラではプレイヤートリガーチェックスクリプト及びボックスコライダー２Dが機能しない
+
+■StagweClear↑
+Box Collider 2Dのコライダーの編集でゴールに侵入判定を作る　プレイヤートリガーチェックスクリプトを配置
+
+
+↑StageClearText
+一旦、プレハブを展開　テキストをステージコントロール配下、ゲームオーバーより上に配置して
+
+Clear Stageとテキストで書く　フォントサイズ９０　オーバーフロー×2　Clear Effectスクリプトを入れる　アニメーションカーブとステージコントローラーを設定
+
+アニメーションカーブは0.5の時1.5にする　0/0　→　0.5/1.5　→1.0/1.0
+
+StageCtrl
+
+ステージクリアSE　	s_ef_at_huripen　あまってたSE
+ステージクリア　	StageClearText →　ステージコントロール配下で作成したテキスト
+ステージクリア判定	■StagweClear　→ステージコントロール外で最初に作成した■StagweClear
+
+Message		メッセージを表示させる
+Continue1	カカシ　コンテニューポイント１
+ClearStage	ステージクリア
+↑をPlayerTriggerという名前の空のオブジェクト配下にした　全てプレイヤーがトリガーで発生するイベントであるため
+
+ステージクリアしてステージ２に移行できた
+
+↑これまで作成したヒエラルキー
+
+
+
+＃５6かな？	Unity 2Dアクションの作り方【ジャンプ台】
+Unity 2Dアクションの作り方【ジャンプ台】【ギミック】 | ゲームの作り方！
+
+ステージクリアをもっと奥に配置する
+
+男子体操27-踏切板 の無料イラスト-イラストポップのスポーツクリップアートカット集
+大きさ633なので１０２４
+↓Pixelmatorで作成　テクスチャ配下に配置　スプライト　iOS用にする
+jumpdai1.png　→シーンに配置　名前をjumpstep
+jumpdai2.png
+
+↑通常状態のアニメーションとジャンプ台が作動した時のアニメーションを作成します。　2色の色の踏み台を用意した
+
+↑レイヤーではなくパラメーターで＋Triggerでonを作成
+
+↑通常状態		→ジャンプ状態　	のところはonが入ったら遷移、Transition Durationを０　Conditions ＋　onを選択
+ジャンプ状態	→通常状態　		のところはHas Exit Timeにチェック、Exit Timeを１にTransition Durationを０に設定
+
+＜ジャンプ台を踏んだ時の制御を作成＞
+では、ジャンプ台を踏んだ時の処理を追加していきましょう。でもその前に、ジャンプ台はジャンプ台と認識させなければいけないのでタグをつけましょう。
+
+自分はJumpStepというタグを作って設定しました。
+敵を踏んだ時に作ったものは高さを変える事ができましたが、速さは変えられなかったので速さを変えるパラメーターを追加します。で、踏んだ場合の制御を書いたジャンプ台のスクリプトを用意します。
+
+ObjectCollision   何かを踏んだ時のスクリプトに速さを加えたもの
+=====================
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class ObjectCollision : MonoBehaviour
+{
+    [Header("これを踏んだ時のプレイヤーが跳ねる高さ")] public float boundHeight;
+    [Header("これを踏んだ時のプレイヤーが跳ねる速さ")] public float jumpSpeed;
+
+    /// <summary>
+    /// このオブジェクトをプレイヤーが踏んだかどうか
+    /// </summary>
+    [HideInInspector] public bool playerStepOn;
+}
+=====================
+
+JumpObject ジャンプ台のスクリプト NEW
+=====================
+ using System.Collections;
+ using System.Collections.Generic;
+ using UnityEngine;
+ public class JumpObject : MonoBehaviour
+ {
+     private ObjectCollision oc;
+     private Animator anim;
+
+     // Start is called before the first frame update
+     void Start()
+     {
+          oc = GetComponent<ObjectCollision>();
+          anim = GetComponent<Animator>();
+          if(oc == null || anim == null)
+          {
+              Debug.Log("ジャンプ台の設定が足りていません");
+              Destroy(this);
+          }
+     }
+
+     // Update is called once per frame
+     void Update()
+     {
+          if (oc.playerStepOn)
+          {
+              anim.SetTrigger("on");
+              oc.playerStepOn = false;
+          }
+     }
+ }
+=====================
+これら２つのスクリプトをジャンプ台にくっつけ、BoxCollider2DとAnimatorもセットしましょう。
+
+
+次はプレイヤー側がジャンプ台を踏んだことを認識し、跳べるようにします。
+
+Player　　　跳べるようにしたプレイヤーのスクリプト
+=====================
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Player : MonoBehaviour
+{
+    #region//インスペクターで設定する
+    [Header("移動速度")] public float speed;
+    [Header("重力")] public float gravity;
+    [Header("ジャンプ速度")] public float jumpSpeed;
+    [Header("ジャンプする高さ")] public float jumpHeight;
+    [Header("ジャンプする長さ")] public float jumpLimitTime;
+    [Header("接地判定")] public GroundCheck ground;
+    [Header("天井判定")] public GroundCheck head;
+    [Header("ダッシュの速さ表現")] public AnimationCurve dashCurve;
+    [Header("ジャンプの速さ表現")] public AnimationCurve jumpCurve;
+    [Header("踏みつけ判定の高さの割合(%)")] public float stepOnRate;
+    [Header("ジャンプする時に鳴らすSE")] public AudioClip jumpSE;
+    [Header("やられた鳴らすSE")] public AudioClip downSE;
+    [Header("コンティニュー時に鳴らすSE")] public AudioClip continueSE;
+    #endregion
+
+
+    #region//プライベート変数
+    private Animator anim = null;
+    private Rigidbody2D rb = null;
+    private CapsuleCollider2D capcol = null;
+    private SpriteRenderer sr = null;
+    private MoveObject moveObj = null;
+    private bool isGround = false;
+    private bool isJump = false;
+    private bool isHead = false;
+    private bool isRun = false;
+    private bool isDown = false;
+    private bool isOtherJump = false;
+    private bool isContinue = false;
+    private bool nonDownAnim = false;
+    private bool isClearMotion = false;
+    private float jumpPos = 0.0f;
+    private float otherJumpHeight = 0.0f;
+    private float otherJumpSpeed = 0.0f;
+    private float dashTime = 0.0f;
+    private float jumpTime = 0.0f;
+    private float beforeKey = 0.0f;
+    private float continueTime = 0.0f;
+    private float blinkTime = 0.0f;
+    private string enemyTag = "Enemy";
+    private string deadAreaTag = "DeadArea";
+    private string hitAreaTag = "HitArea";
+    private string moveFloorTag = "MoveFloor";
+    private string fallFloorTag = "FallFloor";
+    private string jumpStepTag = "JumpStep";
+    #endregion
+
+    void Start()
+    {
+        //コンポーネントのインスタンスを捕まえる
+        anim = GetComponent<Animator>();
+        rb = GetComponent<Rigidbody2D>();
+        capcol = GetComponent<CapsuleCollider2D>();
+        sr = GetComponent<SpriteRenderer>();
+    }
+
+    private void Update()
+    {
+        if (isContinue)
+        {
+            //明滅　ついている時に戻る
+            if (blinkTime > 0.2f)
+            {
+                sr.enabled = true;
+                blinkTime = 0.0f;
+            }
+            //明滅　消えているとき
+            else if (blinkTime > 0.1f)
+            {
+                sr.enabled = false;
+            }
+            //明滅　ついているとき
+            else
+            {
+                sr.enabled = true;
+            }
+            //1秒たったら明滅終わり
+            if (continueTime > 1.0f)
+            {
+                isContinue = false;
+                blinkTime = 0.0f;
+                continueTime = 0.0f;
+                sr.enabled = true;
+            }
+            else
+            {
+                blinkTime += Time.deltaTime;
+                continueTime += Time.deltaTime;
+            }
+        }
+    }
+
+
+
+    void FixedUpdate()
+    {
+
+        if (!isDown && !GManager.instance.isGameOver && !GManager.instance.isStageClear)
+        {
+            //接地判定を得る
+            isGround = ground.IsGround();
+            isHead = head.IsGround();
+
+            //各種座標軸の速度を求める
+            float xSpeed = GetXSpeed();
+            float ySpeed = GetYSpeed();
+
+            //アニメーションを適用
+            SetAnimation();
+
+            //移動速度を設定
+            Vector2 addVelocity = Vector2.zero;
+            if (moveObj != null)
+            {
+                addVelocity = moveObj.GetVelocity();
+            }
+            rb.velocity = new Vector2(xSpeed, ySpeed) + addVelocity;
+        }
+        else
+        {
+            if (!isClearMotion && GManager.instance.isStageClear)
+            {
+                anim.Play("player_win");
+                isClearMotion = true;
+            }
+            rb.velocity = new Vector2(0, -gravity);
+        }
+    }
+
+    /// <summary>
+    /// Y成分で必要な計算をし、速度を返す。
+    /// </summary>
+    /// <returns>Y軸の速さ</returns>
+    private float GetYSpeed()
+    {
+        float verticalKey = Input.GetAxis("Vertical");
+        float ySpeed = -gravity;
+
+        //何かを踏んだ際のジャンプ
+        if (isOtherJump)
+        {
+            //現在の高さが飛べる高さより下か
+            bool canHeight = jumpPos + otherJumpHeight > transform.position.y;
+            //ジャンプ時間が長くなりすぎてないか
+            bool canTime = jumpLimitTime > jumpTime;
+
+            if (canHeight && canTime && !isHead)
+            {
+                ySpeed =otherJumpSpeed;
+                jumpTime += Time.deltaTime;
+            }
+            else
+            {
+                isOtherJump = false;
+                jumpTime = 0.0f;
+            }
+        }
+        //地面にいるとき
+        else if (isGround)
+        {
+            if (verticalKey > 0)
+            {
+                if (!isJump)
+                {
+                    GManager.instance.PlaySE(jumpSE);
+                }
+                ySpeed = jumpSpeed;
+                jumpPos = transform.position.y; //ジャンプした位置を記録する
+                isJump = true;
+                jumpTime = 0.0f;
+            }
+            else
+            {
+                isJump = false;
+            }
+        }
+        //ジャンプ中
+        else if (isJump)
+        {
+            //上方向キーを押しているか
+            bool pushUpKey = verticalKey > 0;
+            //現在の高さが飛べる高さより下か
+            bool canHeight = jumpPos + jumpHeight > transform.position.y;
+            //ジャンプ時間が長くなりすぎてないか
+            bool canTime = jumpLimitTime > jumpTime;
+
+            if (pushUpKey && canHeight && canTime && !isHead)
+            {
+                ySpeed = jumpSpeed;
+                jumpTime += Time.deltaTime;
+            }
+            else
+            {
+                isJump = false;
+                jumpTime = 0.0f;
+            }
+        }
+
+        if (isJump || isOtherJump)
+        {
+            ySpeed *= jumpCurve.Evaluate(jumpTime);
+        }
+        return ySpeed;
+    }
+
+
+    /// <summary>
+    /// X成分で必要な計算をし、速度を返す。
+    /// </summary>
+    /// <returns>X軸の速さ</returns>
+    private float GetXSpeed()
+    {
+        float horizontalKey = Input.GetAxis("Horizontal");
+        float xSpeed = 0.0f;
+
+        if (horizontalKey > 0)
+        {
+            transform.localScale = new Vector3(1, 1, 1);
+            isRun = true;
+            dashTime += Time.deltaTime;
+            xSpeed = speed;
+        }
+        else if (horizontalKey < 0)
+        {
+            transform.localScale = new Vector3(-1, 1, 1);
+            isRun = true;
+            dashTime += Time.deltaTime;
+            xSpeed = -speed;
+        }
+        else
+        {
+            isRun = false;
+            xSpeed = 0.0f;
+            dashTime = 0.0f;
+        }
+
+        //前回の入力からダッシュの反転を判断して速度を変える
+        if (horizontalKey > 0 && beforeKey < 0)
+        {
+            dashTime = 0.0f;
+        }
+        else if (horizontalKey < 0 && beforeKey > 0)
+        {
+            dashTime = 0.0f;
+        }
+
+        xSpeed *= dashCurve.Evaluate(dashTime);
+        beforeKey = horizontalKey;
+        return xSpeed;
+    }
+
+    /// <summary>
+    /// アニメーションを設定する
+    /// </summary>
+    private void SetAnimation()
+    {
+        anim.SetBool("jump", isJump || isOtherJump);
+        anim.SetBool("ground", isGround);
+        anim.SetBool("run", isRun);
+    }
+
+    /// <summary>
+    /// コンティニュー待機状態か
+    /// </summary>
+    /// <returns></returns>
+    public bool IsContinueWaiting()
+    {
+        if (GManager.instance.isGameOver)
+        {
+            return false;
+        }
+        else
+        {
+            return IsDownAnimEnd() || nonDownAnim;
+        }
+    }
+
+    //ダウンアニメーションが完了しているかどうか
+    private bool IsDownAnimEnd()
+    {
+        if (isDown && anim != null)
+        {
+            AnimatorStateInfo currentState = anim.GetCurrentAnimatorStateInfo(0);
+            if (currentState.IsName("player_down"))
+            {
+                if (currentState.normalizedTime >= 1)
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    /// <summary>
+    /// コンティニューする
+    /// </summary>
+    public void ContinuePlayer()
+    {
+        GManager.instance.PlaySE(continueSE);
+        isDown = false;
+        anim.Play("player_stand");
+        isJump = false;
+        isOtherJump = false;
+        isRun = false;
+        isContinue = true;
+        nonDownAnim = false;
+    }
+
+    //やられた時の処理
+    private void ReceiveDamage(bool downAnim)
+    {
+        if (isDown || GManager.instance.isStageClear)
+        {
+            return;
+        }
+        else
+        {
+            if (downAnim)
+            {
+                anim.Play("player_down");
+            }
+            else
+            {
+                nonDownAnim = true;
+            }
+            isDown = true;
+            GManager.instance.PlaySE(downSE);
+            GManager.instance.SubHeartNum();
+        }
+    }
+
+    #region//接触判定
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        bool enemy = (collision.collider.tag == enemyTag);
+        bool moveFloor = (collision.collider.tag == moveFloorTag);
+        bool fallFloor = (collision.collider.tag == fallFloorTag);
+        bool jumpStep = (collision.collider.tag == jumpStepTag);
+
+        if (enemy || moveFloor || fallFloor || jumpStep)
+        {
+            //踏みつけ判定になる高さ
+            float stepOnHeight = (capcol.size.y * (stepOnRate / 100f));
+
+            //踏みつけ判定のワールド座標
+            float judgePos = transform.position.y - (capcol.size.y / 2f) + stepOnHeight;
+
+            foreach (ContactPoint2D p in collision.contacts)
+            {
+                if (p.point.y < judgePos)
+                {
+                    if (enemy || fallFloor || jumpStep)
+                    {
+                        ObjectCollision o = collision.gameObject.GetComponent<ObjectCollision>();
+                        if (o != null)
+                        {
+                            if (enemy || jumpStep)
+                            {
+                                otherJumpHeight = o.boundHeight;    //踏んづけたものから跳ねる高さを取得する
+                                otherJumpSpeed = o.jumpSpeed; //ジャンプするスピード
+                                o.playerStepOn = true;        //踏んづけたものに対して踏んづけた事を通知する
+                                jumpPos = transform.position.y; //ジャンプした位置を記録する
+                                isOtherJump = true;
+                                isJump = false;
+                                jumpTime = 0.0f;
+                            }
+                            else if (fallFloor)
+                            {
+                                o.playerStepOn = true;
+                            }
+                        }
+                        else
+                        {
+                            Debug.Log("ObjectCollisionが付いてないよ!");
+                        }
+                    }
+                    else if (moveFloor)
+                    {
+                        moveObj = collision.gameObject.GetComponent<MoveObject>();
+                    }
+                }
+                else
+                {
+                    if (enemy)
+                    {
+                        ReceiveDamage(true);
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.collider.tag == moveFloorTag)
+        {
+            //動く床から離れた
+            moveObj = null;
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == deadAreaTag)
+        {
+            ReceiveDamage(false);
+        }
+        else if (collision.tag == hitAreaTag)
+        {
+            ReceiveDamage(true);
+        }
+    }
+    #endregion
+}
+=====================
+はい、完成しました。
+ジャンプ台が跳べる高さや飛ぶ速さなどはインスペクターで調整してください。
+また、敵についていたスクリプトをいじったので、敵のインスペクターも変更するのを忘れないでください。
+
+
+敵を何体も置いてしまっている人は敵をプレハブ化して元を変更したら全部に変更が行き届くようにしましょう。
+
+jumpstepはObject配下に置いた
+
+
+
+
+＃５7かな？	Unity 2Dアクションの作り方【グラフィック差し替え】
+Unity 2Dアクションの作り方【グラフィック差し替え】 | ゲームの作り方！
+
+Broken text PPtr in file(Assets/UnityChan2D/Animations/UnityChan2D.controller). Local file identifier (110220483) doesn't exist!
+ファイル(Assets/UnityChan2D/Animations/UnityChan2D.controller)内の壊れたテキストPPtr。ローカルファイル識別子(110220483)が存在しません!
+
+Assets/UnityChan2D/Demo/Scripts/PointController.cs(7,12): error CS0619: 'GUIText' is obsolete: 'GUIText has been removed. Use UI.Text instead.'
+Assets/UnityChan2D/Demo/Scripts/TimeController.cs(10,12): error CS0619: 'GUIText' is obsolete: 'GUIText has been removed. Use UI.Text instead.'
+Assets/UnityChan2D/Demo/Scripts/PointController.cs(8,12): error CS0619: 'GUIText' is obsolete: 'GUIText has been removed. Use UI.Text instead.'
+Assets/UnityChan2D/Demo/Scripts/PointController.cs(8,12): error CS0619: 'GUIText' is obsolete: 'GUITextは削除されました。代わりに UI.Text を使用してください。
+
+API Update Required
+This project contains scripts and/or assemblies that use obsolete APIs.
+If you choose “Go Ahead”,Unity will automatically upgrade any scripts/assemblies in the Assets folder found using the old APIs. You should make a backup befor proceeding. (You con always run API Updater manually via the “Assets/Run API Updater” menu command.)
+
+APIの更新が必要
+このプロジェクトには、時代遅れの API を使用するスクリプトやアセンブリが含まれています。
+Go Ahead "を選択した場合、古いAPIを使用しているAssetsフォルダ内のスクリプトやアセンブリは自動的にアップグレードされます。事前にバックアップを取っておく必要があります。(常に "Assets/Run API Updater "メニューコマンドを使って手動でAPI Updaterを実行してください)
+
+まずバックアップをしたい　方法は３つ
+Unityのプロジェクトをバックアップする方法 - Qiita
+
+↑①バックアップは取れるが１Gまで無料　完璧に元の状態に戻るわけではない　あまり信用しないほうがいい
+
+↑②古い拡張子が対応しておらずインポートが失敗したので削除した
+③ローカルファイルバックアップ　/ユーザ/me-do/デスクトップ/unity/buckup/006/かえるちゃん
+
+↑敵キャラをザコ１に置き換えたがアニメーションがハエのように小さく表示されたのでザコ１では不採用　☆で解決済み
+
+↑ユニティちゃんをプレイヤーのアニメーションと置き換えたが、地面に潜り込む事象が発生　コライダーを微調整してちゃんと地面に接地するようになった
+
+↑地面差し替えしたがぼやけてユニティちゃんがはなれた　ユニット毎のピクセル数を１５に変更したらきれいになった　☆おぽっさむは１０
+新たにアセットを２つ追加した　動く床を雲に差し替えてコライダーを編集した　これで背景以外はとりあえず完了
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
